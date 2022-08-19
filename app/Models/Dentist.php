@@ -16,6 +16,9 @@ class Dentist extends Model
     public function city(){
         return $this->belongsTo(City::class);
     }
+    public function clients(){
+        return $this->belongsToMany(Client::class,'client_dentists','client_id','dentist_id','id','id');
+    }
 
     public static function boot() {
         parent::boot();

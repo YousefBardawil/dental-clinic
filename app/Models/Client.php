@@ -18,6 +18,14 @@ class Client extends Model
         return $this->belongsTo(City::class);
     }
 
+    public function dentists(){
+        return $this->belongsToMany(Dentist::class,'client_dentists','client_id','dentist_id','id','id');
+    }
+
+    public function medicalhistories(){
+        return $this->hasMany(Medical_history::class,'client_id');
+    }
+
     public static function boot() {
         parent::boot();
 

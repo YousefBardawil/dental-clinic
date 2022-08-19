@@ -1,9 +1,9 @@
 @extends('cms.parent');
 
-@section('tittle' , 'client')
+@section('tittle' , 'medical-history')
 
-@section('main-tittle' , 'index client')
-@section('sub-tittle' , 'Data of client')
+@section('main-tittle' , 'index medical-history')
+@section('sub-tittle' , 'Data of medical-history')
 
 @section('styles')
 
@@ -15,7 +15,7 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-            <a href="{{ route('clients.create') }}" type="submit" class="btn btn-success">create new client</a>
+            <a href="{{route('create.med.history', $id)}}" type="submit" class="btn btn-success">create new medical-history</a>
 
 
           <div class="card-tools">
@@ -36,31 +36,31 @@
             <thead>
               <tr>
                 <th>ID</th>
-                <th>name</th>
-                <th>mobile</th>
-                <th>Gender</th>
-                <th>add medical-file</th>
-                <th>settings</th>
+                <th>x-ray</th>
+                <th>Report</th>
+                <th>prescription</th>
+                <th>created-at</th>
+                <th>updated-at</th>
+                <th>setting</th>
 
               </tr>
             </thead>
             <tbody>
 
-                @foreach ( $clients as $client )
+                @foreach ( $medicalhistories as $medicalhistory )
 
                 <tr>
-                    <td>{{ $client->id }}</td>
-                    <td>{{ $client->name }}</td>
-                    <td>{{ $client->user->mobile}}</td>
-                    <td>{{ $client->user->gender }}</td>
-                    <td><a href="{{route('index.med.history',['id'=>$client->id])}}"
-                        class="btn btn-info">({{$client->medicalhistories_count}})
-                        file/s</a> </td>
+                    <td>{{ $medicalhistory->id }}</td>
+                    <td>{{ $medicalhistory->xray }}</td>
+                    <td>{{ $medicalhistory->report}}</td>
+                    <td>{{ $medicalhistory->prescription }}</td>
+                    <td>{{ $medicalhistory->created_at }}</td>
+                    <td>{{ $medicalhistory->updated_at }}</td>
                     <td>
                         <div class="btn-group">
-                          <a href="{{ route('clients.edit' , $client->id) }}" type="button" class="btn btn-info">edit</a>
-                          <a href="#" onclick="confirmDelete({{ $client->id}},this)" type="button" class="btn btn-danger">Delete</a>
-                          <a href="{{ route('clients.show' , $client->id) }}" type="button" class="btn btn-success">show</a>
+                          <a href="{{ route('medical-histories.edit', $medicalhistory->id) }}" type="button" class="btn btn-info">edit</a>
+                          <a href="#" onclick="confirmDelete({{ $medicalhistory->id}},this)" type="button" class="btn btn-danger">Delete</a>
+                          <button type="button" class="btn btn-success">show</button>
                         </div>
                       </td>
                   </tr>
@@ -71,9 +71,7 @@
           </table>
         </div>
 
-
-
-        {{ $clients->links() }}
+        {{ $medicalhistories->links() }}
         <!-- /.card-body -->
       </div>
       <!-- /.card -->
@@ -87,7 +85,7 @@
 
 <script>
     function confirmDelete(id , referance){
-      let url = '/cms/clients/'+id;
+      let url = '/cms/medical-histories/'+id;
       confirmDestroy(url , referance);
 
     }
