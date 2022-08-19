@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\DentistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,5 +28,7 @@ Route::prefix('cms')->group(function(){
     Route::post('cities_update/{id}' , [CityController::class , 'update'] );
     Route::resource('clients', ClientController::class);
     Route::post('clients_update/{id}' , [ClientController::class , 'update'] );
+    Route::resource('dentists', DentistController::class);
+    Route::post('dentists_update/{id}' , [DentistController::class , 'update'] );
 
 });

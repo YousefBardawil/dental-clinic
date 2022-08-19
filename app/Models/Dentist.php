@@ -5,10 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Model
+class Dentist extends Model
 {
     use HasFactory;
-
     public function user(){
 
         return $this->morphOne(User::class ,'actor','actor_type','actor_id','id');
@@ -21,10 +20,9 @@ class Client extends Model
     public static function boot() {
         parent::boot();
 
-        static::deleting(function($client) { // before delete() method call this
-             $client->user()->delete();
-             $client->city()->delete();
+        static::deleting(function($dentist) { // before delete() method call this
+             $dentist->user()->delete();
+             $dentist->city()->delete();
              // do the rest of the cleanup...
         });}
-
 }
