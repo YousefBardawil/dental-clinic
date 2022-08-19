@@ -16,6 +16,10 @@ class User extends Authenticatable
         return $this->belongsTo(City::class);
     }
 
+    public function actor(){
+        return $this->morphTo();
+      }
+
     /**
      * The attributes that are mass assignable.
      *

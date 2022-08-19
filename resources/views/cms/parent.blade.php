@@ -237,31 +237,31 @@
 
           <li class="nav-header">Users</li>
 
-          {{-- <li class="nav-item">
+          <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>
-                Admin
+                Client
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('admins.index') }}" class="nav-link">
+                <a href="{{ route('clients.index') }}" class="nav-link">
                   <i class="fas fa-list nav-icon"></i>
 
                   <p>Index</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('admins.create') }}" class="nav-link">
+                <a href="{{ route('clients.create') }}" class="nav-link">
                   <i class="fas fa-plus nav-icon text-light"></i>
                   <p>Create</p>
                 </a>
               </li>
 
             </ul>
-          </li> --}}
+          </li>
           {{-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
