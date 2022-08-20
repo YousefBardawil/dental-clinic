@@ -23,6 +23,11 @@ class Dentist extends Model
     public function rooms(){
         return $this->belongsToMany(Room::class,'dentist_rooms','dentist_id','room_id','id','id');
     }
+
+    public function services(){
+        return $this->belongsToMany(Service::class,'dentist_services','dentist_id','service_id','id','id');
+    }
+
     public static function boot() {
         parent::boot();
 

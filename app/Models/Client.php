@@ -23,7 +23,10 @@ class Client extends Model
     }
 
     public function rooms(){
-        return $this->belongsToMany(Room::class,'dentist_rooms','dentist_id','room_id','id','id');
+        return $this->belongsToMany(Room::class,'client_rooms','client_id','room_id','id','id');
+    }
+    public function services(){
+        return $this->belongsToMany(Service::class,'client_services','client_id','service_id','id','id');
     }
 
     public function medicalhistories(){
