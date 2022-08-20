@@ -5,6 +5,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DentistController;
 use App\Http\Controllers\MedicalHistoryController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +31,8 @@ Route::prefix('cms')->group(function(){
     Route::post('cities_update/{id}' , [CityController::class , 'update'] );
     Route::resource('rooms', RoomController::class);
     Route::post('rooms_update/{id}' , [RoomController::class , 'update'] );
+    Route::resource('services', ServiceController::class);
+    Route::post('services_update/{id}' , [ServiceController::class , 'update'] );
     Route::resource('clients', ClientController::class);
     Route::post('clients_update/{id}' , [ClientController::class , 'update'] );
     Route::resource('dentists', DentistController::class);

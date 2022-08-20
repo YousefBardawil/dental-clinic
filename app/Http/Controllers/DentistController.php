@@ -142,9 +142,9 @@ class DentistController extends Controller
                 $image->move('images/dentist', $imageName);
                 $dentists->image = $imageName;
                  }
-               $isSaved = $dentists->save();
+               $isUpdated= $dentists->save();
 
-               if($isSaved){
+               if($isUpdated){
 
                 $users= $dentists->user;
                 $users->mobile = $request->get('mobile');
