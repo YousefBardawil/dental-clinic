@@ -4,6 +4,7 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DentistController;
 use App\Http\Controllers\MedicalHistoryController;
+use App\Http\Controllers\OpeningHourController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
@@ -41,5 +42,10 @@ Route::prefix('cms')->group(function(){
     Route::post('medical-histories_update/{id}' , [MedicalHistoryController::class , 'update'] );
     Route::get('/create/med-history/{id}', [MedicalHistoryController::class, 'createmedicalhistories'])->name('create.med.history');
     Route::get('/index/med-history/{id}', [MedicalHistoryController::class, 'indexmedicalhistories'])->name('index.med.history');
+
+    Route::resource('opening-hours', OpeningHourController::class);
+    Route::post('opening-hours_update/{id}' , [OpeningHourController::class , 'update'] );
+    Route::get('/create/opening-hours/{id}', [OpeningHourController::class, 'createopeninghours'])->name('create.opening.hours');
+    Route::get('/index/opening-hours/{id}', [OpeningHourController::class, 'indexopeninghours'])->name('index.opening.hours');
 
 });

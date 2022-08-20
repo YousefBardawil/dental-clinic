@@ -38,7 +38,7 @@
                 <th>ID</th>
                 <th>name</th>
                 <th>mobile</th>
-                <th>Gender</th>
+                <th>add opening hours</th>
                 <th>Image</th>
                 <th>settings</th>
 
@@ -52,7 +52,9 @@
                     <td>{{ $dentist->id }}</td>
                     <td>{{ $dentist->name }}</td>
                     <td>{{ $dentist->user->mobile}}</td>
-                    <td>{{ $dentist->user->gender }}</td>
+                    <td><a href="{{route('index.opening.hours',['id'=>$dentist->id])}}"
+                        class="btn btn-info">({{$dentist->openinghours_count}})
+                        day/s</a> </td>
                     <td>
                         <img class="img-circle img-bordered-sm" src="{{ asset('images/dentist/'. $dentist->image)  }}" width="50" alt="">
                     </td>

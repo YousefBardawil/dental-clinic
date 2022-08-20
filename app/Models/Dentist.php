@@ -28,6 +28,9 @@ class Dentist extends Model
         return $this->belongsToMany(Service::class,'dentist_services','dentist_id','service_id','id','id');
     }
 
+    public function openinghours(){
+        return $this->hasMany(OpeningHour::class,'dentist_id');
+    }
     public static function boot() {
         parent::boot();
 

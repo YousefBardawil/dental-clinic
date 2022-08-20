@@ -18,7 +18,7 @@ class DentistController extends Controller
     public function index()
     {
 
-        $dentists = Dentist::with('city')->orderBy('id','desc')->simplePaginate(5);
+        $dentists = Dentist::with('city')->withCount('openinghours')->orderBy('id','desc')->simplePaginate(5);
         return response()->view('cms.dentist.index',compact('dentists'));
     }
 
