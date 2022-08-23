@@ -31,6 +31,11 @@ class Dentist extends Model
     public function openinghours(){
         return $this->hasMany(OpeningHour::class,'dentist_id');
     }
+
+    public function appointments(){
+        return $this->hasMany(Appointment::class,'dentist_id');
+    }
+
     public static function boot() {
         parent::boot();
 

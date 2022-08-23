@@ -20,4 +20,8 @@ class Service extends Model
     public function dentists(){
         return $this->belongsToMany(Dentist::class,'dentist_services','dentist_id','service_id','id','id');
     }
+
+    public function appointments(){
+        return $this->hasMany(Appointment::class,'service_id');
+    }
 }

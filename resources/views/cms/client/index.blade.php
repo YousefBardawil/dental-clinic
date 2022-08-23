@@ -40,6 +40,7 @@
                 <th>mobile</th>
                 <th>Gender</th>
                 <th>add medical-file</th>
+                <th>appointments</th>
                 <th>settings</th>
 
               </tr>
@@ -55,7 +56,13 @@
                     <td>{{ $client->user->gender }}</td>
                     <td><a href="{{route('index.med.history',['id'=>$client->id])}}"
                         class="btn btn-info">({{$client->medicalhistories_count}})
-                        file/s</a> </td>
+                        file/s</a>
+                    </td>
+
+                     <td><a href="{{route('index.appointments',['id'=>$client->id])}}"
+                        class="btn btn-info">({{$client->appointments_count}})
+                        appointment/s</a>
+                     </td>
                     <td>
                         <div class="btn-group">
                           <a href="{{ route('clients.edit' , $client->id) }}" type="button" class="btn btn-info">edit</a>

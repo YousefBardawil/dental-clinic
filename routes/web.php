@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DentistController;
@@ -47,5 +48,11 @@ Route::prefix('cms')->group(function(){
     Route::post('opening-hours_update/{id}' , [OpeningHourController::class , 'update'] );
     Route::get('/create/opening-hours/{id}', [OpeningHourController::class, 'createopeninghours'])->name('create.opening.hours');
     Route::get('/index/opening-hours/{id}', [OpeningHourController::class, 'indexopeninghours'])->name('index.opening.hours');
+
+    Route::resource('appointments', AppointmentController::class);
+    Route::post('appointments_update/{id}' , [AppointmentController::class , 'update'] );
+    Route::get('/create/appointments/{id}', [AppointmentController::class, 'createapponintment'])->name('create.appointments');
+    Route::get('/index/appointments/{id}', [AppointmentController::class, 'indexappointment'])->name('index.appointments');
+
 
 });

@@ -28,7 +28,9 @@ class OpeningHourController extends Controller
     }
     public function index()
     {
-        
+        $openinghours = OpeningHour::orderBy('id','desc')->simplePaginate(5);
+        $dentists= Dentist::all();
+        return response()->view('cms.opening-hours.indexall', compact('openinghours' , 'dentists'));
     }
 
     /**

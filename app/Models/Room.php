@@ -19,4 +19,8 @@ class Room extends Model
     public function services(){
         return $this->belongsToMany(Service::class,'room_services','room_id','service_id','id','id');
     }
+
+    public function appointments(){
+        return $this->hasMany(Appointment::class,'room_id');
+    }
 }

@@ -43,7 +43,7 @@
       <!-- /.card-body -->
 
       <div class="card-footer">
-        <a href="{{ route('index.med.history', $id) }}" type="submit" class="btn btn-success">Index page</a>
+        <a href="{{ route('index.med.history', $medicalhistories->client->id) }}" type="submit" class="btn btn-success">Index page</a>
         <button onclick="performUpdate({{  $medicalhistories->id }})" type="button" class="btn btn-primary">update</button>
       </div>
     </form>

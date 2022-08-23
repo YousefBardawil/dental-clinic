@@ -17,7 +17,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::with('city','user')->withCount('medicalhistories')->orderBy('id','desc')->simplePaginate(5);
+        $clients = Client::with('city','user')->withCount('medicalhistories','appointments')->orderBy('id','desc')->simplePaginate(5);
         return response()->view('cms.client.index',compact('clients'));
     }
 

@@ -47,7 +47,7 @@
                   <div class="form-group col-md-4">
                     <label for="gender">Gender</label>
                     <select class="form-control select2" name="gender" id="gender"  style="width: 100%;">
-                        <option selected >{{ $clients->user->gender }}</option>
+                        <option selected value="{{ $clients->user->id }}">{{ $clients->user->gender }}</option>
                       <option value="male">male</option>
                       <option value="female">female</option>
                     </select>
@@ -59,7 +59,7 @@
               <div class="form-group col-md-6">
                   <label for="status">Status</label>
                   <select class="form-control select2" name="status" id="status"  style="width: 100%;">
-                    <option selected >{{ $clients->user->status }}</option>
+                    <option selected value="{{ $clients->user->id }}">{{ $clients->user->status }}</option>
                     <option value="single">single</option>
                     <option value="married">married</option>
                   </select>
