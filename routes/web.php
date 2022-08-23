@@ -3,6 +3,7 @@
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DentistController;
 use App\Http\Controllers\MedicalHistoryController;
 use App\Http\Controllers\OpeningHourController;
@@ -53,6 +54,9 @@ Route::prefix('cms')->group(function(){
     Route::post('appointments_update/{id}' , [AppointmentController::class , 'update'] );
     Route::get('/create/appointments/{id}', [AppointmentController::class, 'createapponintment'])->name('create.appointments');
     Route::get('/index/appointments/{id}', [AppointmentController::class, 'indexappointment'])->name('index.appointments');
+
+    Route::resource('contacts', ContactController::class);
+
 
 
 });
