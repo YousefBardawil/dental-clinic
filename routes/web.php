@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ClientController;
@@ -39,6 +40,8 @@ Route::prefix('cms')->group(function(){
     Route::post('services_update/{id}' , [ServiceController::class , 'update'] );
     Route::resource('clients', ClientController::class);
     Route::post('clients_update/{id}' , [ClientController::class , 'update'] );
+    Route::resource('admins', AdminController::class);
+    Route::post('admins_update/{id}' , [AdminController::class , 'update'] );
     Route::resource('dentists', DentistController::class);
     Route::post('dentists_update/{id}' , [DentistController::class , 'update'] );
     Route::resource('medical-histories', MedicalHistoryController::class);
