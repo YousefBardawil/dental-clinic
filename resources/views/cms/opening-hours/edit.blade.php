@@ -43,7 +43,7 @@
       <!-- /.card-body -->
 
       <div class="card-footer">
-        <a href="{{ route('index.opening.hours', $id) }}" type="submit" class="btn btn-success">Index page</a>
+        <a href="{{ route('index.opening.hours',$openinghours->dentist->id) }}" type="submit" class="btn btn-success">Index page</a>
         <button onclick="performUpdate({{  $openinghours->id }})" type="button" class="btn btn-primary">update</button>
       </div>
     </form>

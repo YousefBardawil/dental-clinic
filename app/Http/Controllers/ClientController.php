@@ -17,7 +17,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::with('city','user')->withCount('medicalhistories','appointments')->orderBy('id','desc')->simplePaginate(5);
+        $clients = Client::with('city','user')->withCount('medicalhistories','appointments','reviews')->orderBy('id','desc')->simplePaginate(5);
         return response()->view('cms.client.index',compact('clients'));
     }
 
@@ -47,6 +47,12 @@ class ClientController extends Controller
 
            if(!$validator->fails()){
                $clients= new Client();
+               if(request()->hasFile('image')){
+                $image = $request->file('image');
+                $imageName =time() . 'image.' . $image->getClientOriginalExtension();
+                $image->move('images/client', $imageName);
+                $clients->image = $imageName;
+                 }
                $clients->email = $request->get('email');
                $clients->name = $request->get('name');
                $clients->password= Hash::make($request->get('password')) ;
@@ -123,6 +129,13 @@ class ClientController extends Controller
 
            if(!$validator->fails()){
                $clients= Client::findOrFail($id);
+               if(request()->hasFile('image')){
+                $image = $request->file('image');
+                $imageName =time() . 'image.' . $image->getClientOriginalExtension();
+                $image->move('images/client', $imageName);
+                $clients->image = $imageName;
+                 }
+
                $clients->email = $request->get('email');
                $clients->name = $request->get('name');
                $clients->password= Hash::make($request->get('password')) ;

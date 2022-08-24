@@ -21,8 +21,8 @@
     <div class="card card-primary card-outline">
         <div class="card-body box-profile">
             <div class="text-center">
-              {{-- <img class="profile-user-img img-fluid img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture"> --}}
-            </div>
+                <img class="profile-user-img img-fluid img-circle" src="{{ asset('images/client/'. $clients->image)  }}" alt="User profile picture">
+              </div>
 
             <h3 class="profile-username text-center">{{ $clients->name }}</h3>
 

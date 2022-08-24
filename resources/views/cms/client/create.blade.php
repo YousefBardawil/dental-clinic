@@ -80,6 +80,13 @@
                      @endforeach
               </select>
             </div>
+
+            <div class="form-group col-md-6">
+                <label for="image">Image</label>
+                    <input type="file" class="form_control" id="image" name="image" placeholder="Enter image">
+
+              </div>
+
           </div>
 
 
@@ -115,6 +122,8 @@ $('.city_id').select2({
    formData.append('age' ,document.getElementById('age').value );
    formData.append('city_id' ,document.getElementById('city_id').value );
    formData.append('status' ,document.getElementById('status').value );
+   formData.append('image' ,document.getElementById('image').files[0]);
+
 
    store('/cms/clients',formData);
 

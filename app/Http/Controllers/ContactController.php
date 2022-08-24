@@ -73,7 +73,7 @@ class ContactController extends Controller
     public function show($id)
     {
         $contacts = Contact::findOrFail($id);
-        return response()->view('cms.contact.show');
+        return response()->view('cms.contact.show' , compact('contacts'));
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DentistController;
 use App\Http\Controllers\MedicalHistoryController;
 use App\Http\Controllers\OpeningHourController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
@@ -56,6 +57,12 @@ Route::prefix('cms')->group(function(){
     Route::get('/index/appointments/{id}', [AppointmentController::class, 'indexappointment'])->name('index.appointments');
 
     Route::resource('contacts', ContactController::class);
+
+    Route::resource('reviews', ReviewController::class);
+    Route::post('reviews_update/{id}' , [ReviewController::class , 'update'] );
+    Route::get('/create/reviews/{id}', [ReviewController::class, 'createreview'])->name('create.reviews');
+    Route::get('/index/reviews/{id}', [ReviewController::class, 'indexreview'])->name('index.reviews');
+
 
 
 

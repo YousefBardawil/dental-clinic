@@ -76,6 +76,12 @@
                      @endforeach
               </select>
             </div>
+            <div class="form-group col-md-6">
+                <label for="image">Image</label>
+                    <input type="file" class="form_control" id="image" name="image" placeholder="Enter image">
+
+              </div>
+              
           </div>
 
 
@@ -111,6 +117,8 @@ $('.country_id').select2({
    formData.append('gender' ,document.getElementById('gender').value );
    formData.append('city_id' ,document.getElementById('city_id').value );
    formData.append('status' ,document.getElementById('status').value );
+   formData.append('image' ,document.getElementById('image').files[0]);
+
 
 
   storeRoute('/cms/clients_update/'+id ,formData);

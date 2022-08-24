@@ -41,6 +41,8 @@
                 <th>Gender</th>
                 <th>add medical-file</th>
                 <th>appointments</th>
+                <th>review</th>
+                <th>Image</th>
                 <th>settings</th>
 
               </tr>
@@ -63,6 +65,13 @@
                         class="btn btn-info">({{$client->appointments_count}})
                         appointment/s</a>
                      </td>
+                     <td><a href="{{route('index.reviews',['id'=>$client->id])}}"
+                        class="btn btn-info">({{$client->reviews_count}})
+                        review/s</a>
+                     </td>
+                     <td>
+                        <img class="img-circle img-bordered-sm" src="{{ asset('images/client/'. $client->image)  }}" width="50" alt="">
+                    </td>
                     <td>
                         <div class="btn-group">
                           <a href="{{ route('clients.edit' , $client->id) }}" type="button" class="btn btn-info">edit</a>

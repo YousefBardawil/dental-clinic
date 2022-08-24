@@ -9,6 +9,10 @@ class Client extends Model
 {
     use HasFactory;
 
+    public function reviews(){
+        return $this->hasMany(Review::class);
+    }
+
     public function user(){
 
         return $this->morphOne(User::class ,'actor','actor_type','actor_id','id');
