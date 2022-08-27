@@ -26,6 +26,10 @@
           <input type="text" class="form-control" id="service_name" name="service_name" value="{{ $services->service_name }}" placeholder="">
         </div>
         <div class="form-group">
+            <label for="Price">service_price</label>
+            <input type="float" class="form-control" id="price" name="price" value="{{ $services->price }}">
+          </div>
+        <div class="form-group">
          <div>   <label for="code">Description</label></div>
           <textarea name="description" style="resize: none;" id="description"  rows="5" cols="40">{{ $services->description }}</textarea>
         </div>

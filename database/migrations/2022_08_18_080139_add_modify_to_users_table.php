@@ -19,11 +19,11 @@ class AddModifyToUsersTable extends Migration
             $table->dropColumn('email');
             $table->dropColumn('password');
 
-            $table->date('date_of_birth');
-            $table->string('mobile');
-            $table->integer('age');
-            $table->enum('gender',['Male','Female']);
-            $table->enum('status',['Single','Married']);
+            $table->date('date_of_birth')->nullable();
+            $table->string('mobile')->nullable();
+            $table->integer('age')->nullable();
+            $table->enum('gender',['Male','Female'])->nullable();
+            $table->enum('status',['Single','Married'])->nullable();
             $table->foreignId('city_id');
             $table->foreign('city_id')->on('cities')->references('id')->cascadeOnDelete();
             $table->morphs('actor');

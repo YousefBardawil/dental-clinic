@@ -26,6 +26,10 @@
           <input type="text" class="form-control" id="service_name" name="service_name" placeholder="Enter service">
         </div>
         <div class="form-group">
+            <label for="Price">service_price</label>
+            <input type="float" class="form-control" id="price" name="price" placeholder="Enter service price">
+          </div>
+        <div class="form-group">
             <div>  <label for="description">Description</label>  </div>
           <textarea name="description" style="resize: none;" id="description"  rows="5" cols="40"></textarea>
         </div>
@@ -54,6 +58,7 @@
     let formData = new FormData;
    formData.append('service_name' ,document.getElementById('service_name').value );
    formData.append('description' ,document.getElementById('description').value );
+   formData.append('price' ,document.getElementById('price').value );
    formData.append('image' ,document.getElementById('image').files[0]);
 
 

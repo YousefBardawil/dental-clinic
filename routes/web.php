@@ -2,15 +2,20 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DentistController;
 use App\Http\Controllers\MedicalHistoryController;
 use App\Http\Controllers\OpeningHourController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,9 +34,30 @@ Route::get('/', function () {
 });
 
 
-Route::prefix('cms')->group(function(){
+Route::get('cms/registeras',[AuthController::class, 'registerAs'])->name('view.RegisterAs');
+Route::get('cms/admin/register',[AuthController::class, 'showRegisterAdmin'])->name('view.Register.admin');
+Route::post('cms/do-register-admin',[AuthController::class, 'registerAdmin']);
+Route::get('cms/dentist/register',[AuthController::class, 'showRegisterDentist'])->name('view.Register.dentist');
+Route::post('cms/do-register-dentist',[AuthController::class, 'registerDentist']);
 
-    Route::view('/',' cms.parent');
+Route::prefix('cms/')->middleware('guest:admin,dentist')->group(function(){
+    Route::get('login',[AuthController::class,'loginAs'])->name('view.loginas');
+    Route::get('{guard}/login',[AuthController::class, 'showlogin'])->name('view.login');
+    Route::post('{guard}/login',[AuthController::class,'login']);
+
+});
+
+Route::prefix('cms/')->middleware('auth:admin,dentist')->group(function(){
+    Route::get('admin' , [AuthController::class , 'logout'])->name('cms.logout');
+    Route::get('edit/profile',[AuthController::class , 'editProfile'])->name('dashboard.profile');
+    Route::get('edit/password',[SettingController::class ,'editpassword'])->name('cms.auth.editpassword');
+    Route::post('update/password',[SettingController::class ,'updatepassword']);
+
+});
+
+
+Route::prefix('cms/')->middleware('auth:admin,dentist')->group(function(){
+    Route::view('dashborad','cms.home');
     Route::resource('cities', CityController::class);
     Route::post('cities_update/{id}' , [CityController::class , 'update'] );
     Route::resource('rooms', RoomController::class);
@@ -67,6 +93,11 @@ Route::prefix('cms')->group(function(){
     Route::get('/index/reviews/{id}', [ReviewController::class, 'indexreview'])->name('index.reviews');
 
 
+    Route::resource('roles',RoleController::class);
+    Route::post('roles_update/{id}' , [RoleController::class , 'update'] );
+    Route::resource('permissions',PermissionController::class);
+    Route::post('permissions_update/{id}' , [PermissionController::class , 'update'] );
+    Route::resource('role.permissions',RolePermissionController::class);
 
 
 });

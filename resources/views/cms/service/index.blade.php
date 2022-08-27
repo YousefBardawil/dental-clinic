@@ -38,6 +38,7 @@
                 <th>ID</th>
                 <th>service_name</th>
                 <th>Description</th>
+                <th>price</th>
                 <th>Image</th>
                 <th>created date</th>
                 <th>setting</th>
@@ -52,6 +53,7 @@
                     <td>{{ $service->id }}</td>
                     <td>{{ $service->service_name }}</td>
                     <td>{{ $service->description }}</td>
+                    <td>{{ $service->price }}</td>
                     <td>
                         <img class="img-circle img-bordered-sm" src="{{ asset('images/service/'. $service->image)  }}" width="50" alt="">
                     </td>

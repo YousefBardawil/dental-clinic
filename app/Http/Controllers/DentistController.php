@@ -7,6 +7,7 @@ use App\Models\Dentist;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class DentistController extends Controller
 {
@@ -30,7 +31,8 @@ class DentistController extends Controller
     public function create()
     {
         $cities = City::all();
-        return response()->view('cms.dentist.create',compact('cities'));
+        $roles = Role::where('guard_name' ,'dentist')->get();
+        return response()->view('cms.dentist.create',compact('cities' ,'roles'));
     }
 
     /**
@@ -63,6 +65,8 @@ class DentistController extends Controller
                if($isSaved){
 
                 $users= new User();
+                $roles = Role::findOrFail($request->get('role_id'));
+                $dentists->assignRole($roles->name);
                 $users->mobile = $request->get('mobile');
                 $users->gender = $request->get('gender');
                 $users->status = $request->get('status');

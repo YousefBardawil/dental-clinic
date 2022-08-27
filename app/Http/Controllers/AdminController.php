@@ -6,6 +6,7 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
@@ -27,7 +28,8 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return response()->view('cms.admin.create');
+        $roles = Role::where('guard_name' ,'admin')->get();
+        return response()->view('cms.admin.create',compact('roles'));
     }
 
     /**
@@ -47,7 +49,9 @@ class AdminController extends Controller
             $admins= new Admin();
             $admins->name = $request->get('name');
             $admins->email = $request->get('email');
-            $admins->password = Hash::make($request->get('email')) ;
+            $roles = Role::findOrFail($request->get('role_id'));
+            $admins->assignRole($roles->name);
+            $admins->password = Hash::make($request->get('password')) ;
             $isSaved = $admins->save();
 
             if($isSaved){
@@ -107,6 +111,8 @@ class AdminController extends Controller
             $admins=  Admin::findOrFail($id);
             $admins->name = $request->get('name');
             $admins->email = $request->get('email');
+
+
             $isUpdated = $admins->save();
             return ['redirect' => route('admins.index' , $id)];
 

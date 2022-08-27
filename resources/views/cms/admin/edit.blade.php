@@ -26,9 +26,10 @@
           <input type="text" class="form-control" id="name" name="name" value="{{ $admins->name }}" placeholder="">
         </div>
         <div class="form-group">
-          <label for="email">code of the admin</label>
+          <label for="email">Email</label>
           <input type="email" class="form-control" id="email" name="email" value="{{ $admins->email }}" placeholder="">
         </div>
+     
 
       </div>
       <!-- /.card-body -->

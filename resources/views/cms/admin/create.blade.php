@@ -21,6 +21,16 @@
     <!-- form start -->
     <form>
       <div class="card-body">
+        <div class="form-group col-md-4">
+            <label for="">Role-name</label>
+            <select class="form-control select2" name="role_id" style="width: 100%;" id="role_id">
+
+                   @foreach ($roles as $role )
+                   <option value="{{ $role->id }}"> {{ $role->name }} </option>
+                   @endforeach
+            </select>
+          </div>
+
         <div class="form-group">
           <label for="name">admin_name</label>
           <input type="text" class="form-control" id="name" name="ame" placeholder="Enter admin">
@@ -54,6 +64,8 @@
    formData.append('name' ,document.getElementById('name').value );
    formData.append('email' ,document.getElementById('email').value );
    formData.append('password' ,document.getElementById('password').value );
+   formData.append('role_id' ,document.getElementById('role_id').value );
+
 
 
    store('/cms/admins',formData);
