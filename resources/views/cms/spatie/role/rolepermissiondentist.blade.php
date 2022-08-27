@@ -37,7 +37,7 @@
 
                   @foreach ( $permissions as $permission )
 
-                    @if ($permission->guard_name === 'admin' )
+                    @if ($permission->guard_name === 'dentist' )
                     <tr>
                     <td>{{ $permission->id }}</td>
                     <td>{{ $permission->name }}</td>

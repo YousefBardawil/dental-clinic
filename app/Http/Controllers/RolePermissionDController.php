@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
-class RolePermissionController extends Controller
+class RolePermissionDController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,9 +29,8 @@ class RolePermissionController extends Controller
             }
         }
 
-        return response()->view('cms.spatie.role.rolepermission',['roleId' => $roleId, 'permissions'=>$permissions]);
+        return response()->view('cms.spatie.role.rolepermissiondentist',['roleId' => $roleId, 'permissions'=>$permissions]);
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -54,27 +51,27 @@ class RolePermissionController extends Controller
     public function store(Request $request,$roleId)
     {
         $validator = Validator($request->all(),[
-         'permission_id' => 'required|exists:permissions,id',
-        ]);
+            'permission_id' => 'required|exists:permissions,id',
+           ]);
 
-        if(!$validator->fails()){
-            $role = Role::findorFail($roleId);
-            $permission = Permission::findOrFail($request->get('permission_id'));
+           if(!$validator->fails()){
+               $role = Role::findorFail($roleId);
+               $permission = Permission::findOrFail($request->get('permission_id'));
 
 
 
-            if($role->hasPermissionTo($permission->id)){
-                $role->revokePermissionTo($permission->id);
-                return response()->json(['icon' => 'error' , 'title' =>'removed'],200);
+               if($role->hasPermissionTo($permission->id)){
+                   $role->revokePermissionTo($permission->id);
+                   return response()->json(['icon' => 'error' , 'title' =>'removed'],200);
 
-            }else{
-                $role->givePermissionTo($permission->id);
-                return response()->json(['icon' => 'success' , 'title' =>' added successfully'],200);
-            }
+               }else{
+                   $role->givePermissionTo($permission->id);
+                   return response()->json(['icon' => 'success' , 'title' =>' added successfully'],200);
+               }
 
-        }else{
-            return response()->json(['icon'=>'error' , 'title' => $validator->getMessageBag()->first()],400);
-        }
+           }else{
+               return response()->json(['icon'=>'error' , 'title' => $validator->getMessageBag()->first()],400);
+           }
     }
 
     /**

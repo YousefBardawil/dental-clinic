@@ -13,6 +13,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RolePermissionController;
+use App\Http\Controllers\RolePermissionDController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SettingController;
@@ -98,6 +99,6 @@ Route::prefix('cms/')->middleware('auth:admin,dentist')->group(function(){
     Route::resource('permissions',PermissionController::class);
     Route::post('permissions_update/{id}' , [PermissionController::class , 'update'] );
     Route::resource('role.permissions',RolePermissionController::class);
-
+    Route::resource('role.permission', RolePermissionDController::class);
 
 });

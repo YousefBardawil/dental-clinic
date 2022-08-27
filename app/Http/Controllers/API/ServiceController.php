@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Models\Service;
 use Illuminate\Http\Request;
-use phpDocumentor\Reflection\DocBlock\Tags\See;
 
 class ServiceController extends Controller
 {
@@ -15,18 +15,12 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $services = Service::orderBy('id','desc')->simplePaginate(5);
-        return response()->view('cms.service.index',compact('services'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return response()->view('cms.service.create');
+        $services = Service::all();
+        return response()->json([
+            'status' => true,
+            'message'  => 'Done correctly',
+            'data'=> $services,
+        ]);
     }
 
     /**
@@ -58,47 +52,53 @@ class ServiceController extends Controller
 
                if($isSaved){
 
-                   return response()->json(['icon'=>'success' , 'title' => 'created successfully' ] , 200);
-               }else {
+                return response()->json([
+                 'status' => true,
+                 'message' => 'added successfully'
+                ] , 200 );
+            }else {
 
-                   return response()->json(['icon'=>'error' , 'title' => 'created failed' ] , 400);
+             return response()->json([
+                 'status' => false,
+                 'message' => 'added failed'
+                ] , 400 );
 
-               };
+            };
 
-           } else {
+        } else {
 
-               return response()->json(['icon'=>'error' , 'title'=>$validator->getMessageBag()->first() ] ,400 );
-           }
+            return response()->json([
+             'status'=>false ,
+             'message'=>$validator->getMessageBag()->first()
+             ] ,400 );
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Service  $service
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Service $service)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Service  $service
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function show($id)
     {
         $services = Service::findOrFail($id);
-        return response()->view('cms.service.edit', compact('services'));
+        if(is_null($services)){
+            return $this->sendError('city not found');
+        }
+        return response()->json([
+            'status' => true,
+            'message' => 'details',
+            'data' => $services,
+
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Service  $service
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -121,32 +121,52 @@ class ServiceController extends Controller
                $services->description = $request->get('description');
                $services->price = $request->get('price');
                $isUpdated = $services->save();
-               return ['redirect' => route('services.index' , $id)];
-
 
                if($isUpdated){
 
-                   return response()->json(['icon'=>'success' , 'title' => 'updated successfully' ] , 200);
-               }else {
+                return response()->json([
+                 'status' => true,
+                 'message' => 'updated successfully'
+                ] , 200 );
+            }else {
 
-                   return response()->json(['icon'=>'error' , 'title' => 'updated failed' ] , 400);
+             return response()->json([
+                 'status' => false,
+                 'message' => 'updated failed'
+                ] , 400 );
 
-               };
+            };
 
-           } else {
+        } else {
 
-               return response()->json(['icon'=>'error' , 'title'=>$validator->getMessageBag()->first() ] ,400 );
-           }
+            return response()->json([
+             'status'=>false ,
+             'message'=>$validator->getMessageBag()->first()
+             ] ,400 );
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Service  $service
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         $services = Service::destroy($id);
+
+        if($services){
+            return response()->json([
+                'status' => true,
+                'message' => 'deleted successfully'
+               ] , 200 );
+           }else {
+
+            return response()->json([
+                'status' => false,
+                'message' => 'deleted failed'
+               ] , 400 );
+            }
     }
 }

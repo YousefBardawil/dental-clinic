@@ -47,13 +47,22 @@
 
                 @foreach ( $roles as $role )
 
+
                 <tr>
                     <td>{{ $role->id }}</td>
                     <td>{{ $role->name }}</td>
                     <td class="badge bg-primary">{{ $role->guard_name }}</td>
+                    @if ($role->guard_name == 'admin')
                     <td>
                         <a href="{{ route('role.permissions.index', $role->id) }}" class="btn btn-success" >({{ $role->permissions_count }}) permission/s</a>
                     </td>
+                    @else
+                    <td>
+                        <a href="{{ route('role.permission.index', $role->id) }}" class="btn btn-success" >({{ $role->permissions_count }}) permission/s</a>
+                    </td>
+
+                    @endif
+
 
                     <td>
                         <div class="btn-group">

@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
 class Dentist extends Authenticatable
 {
-    use HasFactory , HasRoles;
+    use HasFactory , HasRoles , HasApiTokens;
     public function user(){
 
         return $this->morphOne(User::class ,'actor','actor_type','actor_id','id');
