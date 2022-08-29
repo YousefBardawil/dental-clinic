@@ -30,6 +30,7 @@ class OpeningHourController extends Controller
     {
         $openinghours = OpeningHour::orderBy('id','desc')->simplePaginate(5);
         $dentists= Dentist::all();
+     
         return response()->view('cms.opening-hours.indexall', compact('openinghours' , 'dentists'));
     }
 
@@ -40,7 +41,7 @@ class OpeningHourController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**

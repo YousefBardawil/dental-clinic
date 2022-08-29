@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Client;
+use App\Models\Dentist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -18,6 +20,7 @@ class AdminController extends Controller
     public function index()
     {
         $admins = Admin::orderBy('id','desc')->simplePaginate(5);
+        $this->authorize('viewAny', Admin::class);
         return response()->view('cms.admin.index',compact('admins'));
     }
 
@@ -29,6 +32,7 @@ class AdminController extends Controller
     public function create()
     {
         $roles = Role::where('guard_name' ,'admin')->get();
+        $this->authorize('create', Admin::class);
         return response()->view('cms.admin.create',compact('roles'));
     }
 
@@ -90,6 +94,7 @@ class AdminController extends Controller
     public function edit($id)
     {
         $admins = Admin::findOrFail($id);
+        $this->authorize('update', Admin::class);
         return response()->view('cms.admin.edit',compact('admins'));
     }
 
@@ -140,6 +145,7 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete', Admin::class);
         $admins = Admin::destroy($id);
     }
 }

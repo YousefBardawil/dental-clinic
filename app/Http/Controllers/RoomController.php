@@ -15,6 +15,7 @@ class RoomController extends Controller
     public function index()
     {
         $rooms = Room::orderBy('id','desc')->simplePaginate(5);
+        $this->authorize('viewAny', Room::class);
         return response()->view('cms.room.index',compact('rooms'));
 
     }
@@ -26,6 +27,7 @@ class RoomController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Room::class);
         return response()->view('cms.room.create');
     }
 
@@ -82,6 +84,7 @@ class RoomController extends Controller
     public function edit($id)
     {
         $rooms =Room::findOrFail($id);
+        $this->authorize('update', Room::class);
         return response()->view('cms.room.edit',compact('rooms'));
     }
 
@@ -129,6 +132,7 @@ class RoomController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete', Room::class);
         $rooms = Room::destroy($id);
     }
 }

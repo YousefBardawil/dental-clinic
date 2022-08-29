@@ -15,6 +15,7 @@ class ContactController extends Controller
     public function index()
     {
         $contacts = Contact::orderBy('created_at','desc')->simplePaginate(5);
+        $this->authorize('viewAny', Contact::class);
         return response()->view('cms.contact.index',compact('contacts'));
     }
 
@@ -25,6 +26,7 @@ class ContactController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Contact::class);
         return response()->view('cms.contact.create');
     }
 
@@ -84,7 +86,7 @@ class ContactController extends Controller
      */
     public function edit(Contact $contact)
     {
-        //
+        $this->authorize('update', Contact::class);
     }
 
     /**
@@ -107,6 +109,7 @@ class ContactController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete', Contact::class);
         $contatcs = Contact::destroy($id);
     }
 }

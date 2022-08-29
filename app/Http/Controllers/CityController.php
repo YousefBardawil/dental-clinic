@@ -15,6 +15,7 @@ class CityController extends Controller
     public function index()
     {
         $cities = City::orderBy('id','desc')->simplePaginate(5);
+        $this->authorize('viewAny', City::class);
         return response()->view('cms.city.index', compact('cities'));
     }
 
@@ -25,6 +26,7 @@ class CityController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', City::class);
         return response()->view('cms.city.create');
     }
 
@@ -83,6 +85,7 @@ class CityController extends Controller
     public function edit($id)
     {
         $cities = City::findOrFail($id);
+        $this->authorize('update', City::class);
         return response()->view('cms.city.edit' , compact('cities'));
     }
 
@@ -132,6 +135,7 @@ class CityController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete', City::class);
         $cities = City::destroy($id);
     }
 }

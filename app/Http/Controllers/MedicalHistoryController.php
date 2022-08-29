@@ -29,7 +29,8 @@ class MedicalHistoryController extends Controller
 
     public function index()
     {
-        //
+        $medicalhistories = Medical_history::orderBy('id','desc')->simplePaginate(5);
+        return response()->view('cms.med-history.indexall',compact('medicalhistories'));
     }
 
     /**
@@ -39,7 +40,7 @@ class MedicalHistoryController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -187,6 +188,7 @@ class MedicalHistoryController extends Controller
      */
     public function destroy($id)
     {
+
         $medicalhistories = Medical_history::destroy($id);
     }
 }

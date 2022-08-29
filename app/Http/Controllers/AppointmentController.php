@@ -20,6 +20,8 @@ class AppointmentController extends Controller
     {
 
         $appointments = Appointment::where('client_id', $id)->orderBy('created_at', 'desc')->paginate(5);
+
+
         return response()->view('cms.appointment.index', compact('appointments','id'));
     }
 
@@ -40,6 +42,7 @@ class AppointmentController extends Controller
         $dentists = Dentist::all();
         $services = Service::all();
         $rooms = Room::all();
+        $this->authorize('viewAny', Appointment::class);
 
         return response()->view('cms.appointment.indexall',compact('appointments' , 'clients' ,'dentists','rooms','services'));
     }
@@ -51,7 +54,7 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-
+        $this->authorize('create', Appointment::class);
     }
 
     /**
@@ -116,6 +119,7 @@ class AppointmentController extends Controller
         $dentists = Dentist::all();
         $services = Service::all();
         $rooms = Room::all();
+        $this->authorize('update', Appointment::class);
 
         return response()->view('cms.appointment.edit',compact('appointments','clients','rooms','dentists','services'));
     }
@@ -170,6 +174,7 @@ class AppointmentController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete', Appointment::class);
         $appointments = Appointment::destroy($id);
     }
 }

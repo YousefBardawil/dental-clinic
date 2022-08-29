@@ -20,6 +20,7 @@ class DentistController extends Controller
     {
 
         $dentists = Dentist::with('city')->withCount('openinghours')->orderBy('id','desc')->simplePaginate(5);
+        $this->authorize('viewAny', Dentist::class);
         return response()->view('cms.dentist.index',compact('dentists'));
     }
 
@@ -32,6 +33,7 @@ class DentistController extends Controller
     {
         $cities = City::all();
         $roles = Role::where('guard_name' ,'dentist')->get();
+        $this->authorize('create', Dentist::class);
         return response()->view('cms.dentist.create',compact('cities' ,'roles'));
     }
 
@@ -116,7 +118,7 @@ class DentistController extends Controller
 
         $dentists =Dentist::findOrFail($id);
         $cities=City::all();
-
+        $this->authorize('update', Dentist::class);
         return response()->view('cms.dentist.edit',compact('cities','dentists'));
     }
 
@@ -186,6 +188,8 @@ class DentistController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete', Dentist::class);
         $dentists = Dentist::destroy($id);
+
     }
 }

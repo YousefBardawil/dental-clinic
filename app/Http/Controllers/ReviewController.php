@@ -27,7 +27,10 @@ class ReviewController extends Controller
     }
     public function index()
     {
-        //
+        $this->authorize('viewAny', Review::class);
+        $reviews =Review::orderBy('id','desc')->simplePaginate(5);
+        return response()->view('cms.review.indexall' ,compact('reviews'));
+
     }
 
     /**
@@ -37,7 +40,8 @@ class ReviewController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('create', Review::class);
+
     }
 
     /**
@@ -94,6 +98,7 @@ class ReviewController extends Controller
     public function edit($id)
     {
         $reviews = Review::findOrFail($id);
+        $this->authorize('update', Review::class);
 
         return response()->view('cms.review.edit',compact('reviews'));
     }
@@ -143,6 +148,8 @@ class ReviewController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete', Review::class);
+
         $reviews = Review::destroy($id);
     }
 }

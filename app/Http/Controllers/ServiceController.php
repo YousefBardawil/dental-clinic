@@ -16,6 +16,7 @@ class ServiceController extends Controller
     public function index()
     {
         $services = Service::orderBy('id','desc')->simplePaginate(5);
+        $this->authorize('viewAny', Service::class);
         return response()->view('cms.service.index',compact('services'));
     }
 
@@ -26,6 +27,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Service::class);
         return response()->view('cms.service.create');
     }
 
@@ -91,6 +93,7 @@ class ServiceController extends Controller
     public function edit($id)
     {
         $services = Service::findOrFail($id);
+        $this->authorize('update', Service::class);
         return response()->view('cms.service.edit', compact('services'));
     }
 
@@ -147,6 +150,8 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete', Service::class);
+
         $services = Service::destroy($id);
     }
 }

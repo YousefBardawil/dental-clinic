@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\City;
 use App\Models\Client;
 use App\Models\User;
@@ -18,6 +19,7 @@ class ClientController extends Controller
     public function index()
     {
         $clients = Client::with('city','user')->withCount('medicalhistories','appointments','reviews')->orderBy('id','desc')->simplePaginate(5);
+        $this->authorize('viewAny', Client::class);
         return response()->view('cms.client.index',compact('clients'));
     }
 
@@ -29,6 +31,7 @@ class ClientController extends Controller
     public function create()
     {
       $cities = City::all();
+      $this->authorize('create', Client::class);
       return response()->view('cms.client.create',compact('cities'));
     }
 
@@ -105,11 +108,12 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id )
     {
-        $clients =Client::findOrFail($id);
-        $cities=City::all();
 
+        $clients =Client::findOrFail($id);
+        $this->authorize('update', Client::class);
+        $cities=City::all();
         return response()->view('cms.client.edit',compact('cities','clients'));
     }
 
@@ -122,10 +126,12 @@ class ClientController extends Controller
      */
     public function update(Request $request,$id)
     {
+
         $validator = Validator($request->all(),[
             'name' => 'required|String|min:3|max:20',
 
            ]);
+
 
            if(!$validator->fails()){
                $clients= Client::findOrFail($id);
@@ -178,6 +184,7 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete', Client::class);
         $clients = Client::destroy($id);
     }
 }
