@@ -46,9 +46,10 @@ class AdminPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(Admin $admin)
+    public function create()
     {
-        return $admin->hasPermissionTo('Create-Admin')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Create-Admin')
         ?  $this->allow()
         : $this->deny(' can not show create admin');
     }
@@ -60,9 +61,10 @@ class AdminPolicy
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(Admin $admin)
+    public function update()
     {
-        return $admin->hasPermissionTo('Edit-Admin')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Edit-Admin')
         ?  $this->allow()
         : $this->deny(' can not show Edit admin');
     }
@@ -74,9 +76,10 @@ class AdminPolicy
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete( Admin $admin)
+    public function delete()
     {
-        return $admin->hasPermissionTo('Delete-Admin')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Delete-Admin')
         ?  $this->allow()
         : $this->deny(' can not Delete admin');
     }

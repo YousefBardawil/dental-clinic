@@ -17,9 +17,10 @@ class CityPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(Admin $admin)
+    public function viewAny()
     {
-        return $admin->hasPermissionTo('Index-City')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Index-City')
         ?  $this->allow()
         : $this->deny(' can not show index City');
     }
@@ -42,9 +43,10 @@ class CityPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(Admin $admin)
+    public function create()
     {
-        return $admin->hasPermissionTo('Create-City')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Create-City')
         ?  $this->allow()
         : $this->deny(' can not show Create City');
     }
@@ -56,9 +58,10 @@ class CityPolicy
      * @param  \App\Models\City  $city
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(Admin $admin)
+    public function update()
     {
-        return $admin->hasPermissionTo('Edit-City')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Edit-City')
         ?  $this->allow()
         : $this->deny(' can not show Edit City');
     }
@@ -70,9 +73,10 @@ class CityPolicy
      * @param  \App\Models\City  $city
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(Admin $admin)
+    public function delete()
     {
-        return $admin->hasPermissionTo('Delete-City')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Delete-City')
         ?  $this->allow()
         : $this->deny(' can not Delete');
     }

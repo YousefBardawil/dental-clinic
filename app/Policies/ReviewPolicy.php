@@ -17,9 +17,10 @@ class ReviewPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(Admin $admin)
+    public function viewAny()
     {
-        return $admin->hasPermissionTo('Index-Review')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Index-Review')
         ?  $this->allow()
         : $this->deny(' can not show Index Review');
     }
@@ -42,9 +43,10 @@ class ReviewPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(Admin $admin)
+    public function create()
     {
-        return $admin->hasPermissionTo('Create-Review')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Create-Review')
         ?  $this->allow()
         : $this->deny(' can not show Create Review');
     }
@@ -56,9 +58,10 @@ class ReviewPolicy
      * @param  \App\Models\Review  $review
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(Admin $admin)
+    public function update()
     {
-        return $admin->hasPermissionTo('Edit-Review')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Edit-Review')
         ?  $this->allow()
         : $this->deny(' can not show Edit Review');
     }
@@ -70,9 +73,10 @@ class ReviewPolicy
      * @param  \App\Models\Review  $review
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(Admin $admin)
+    public function delete()
     {
-        return $admin->hasPermissionTo('Delete-Review')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Delete-Review')
         ?  $this->allow()
         : $this->deny(' can not Delete Review');
     }

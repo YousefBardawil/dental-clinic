@@ -50,7 +50,7 @@ Route::apiResource('permissions', PermissionController::class);
 
 Route::prefix('auth')->group(function(){
     Route::post('register',[AuthUserController::class,'register']);
-    // Route::post('login',[AuthUserController::class,'login']);
+    Route::post('login' , [AuthUserController::class , 'login']);
 });
 
 

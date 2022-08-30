@@ -17,9 +17,10 @@ class ContactPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(Admin $admin)
+    public function viewAny()
     {
-        return $admin->hasPermissionTo('Index-ContactUs')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Index-ContactUs')
         ?  $this->allow()
         : $this->deny(' can not show Index Contact');
     }
@@ -42,9 +43,10 @@ class ContactPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(Admin $admin)
+    public function create()
     {
-        return $admin->hasPermissionTo('Create-ContactUs')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Create-ContactUs')
         ?  $this->allow()
         : $this->deny(' can not show Create Contact');
     }
@@ -56,9 +58,10 @@ class ContactPolicy
      * @param  \App\Models\Contact  $contact
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(Admin $admin)
+    public function update()
     {
-        return $admin->hasPermissionTo('Edit-ContactUs')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Update-ContactUs')
         ?  $this->allow()
         : $this->deny(' can not show Edit Contact');
     }
@@ -70,9 +73,10 @@ class ContactPolicy
      * @param  \App\Models\Contact  $contact
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(Admin $admin)
+    public function delete()
     {
-        return $admin->hasPermissionTo('Delete-ContactUs')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Delete-ContactUs')
         ?  $this->allow()
         : $this->deny(' can not Delete Contact');
     }

@@ -17,9 +17,10 @@ class ServicePolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(Admin $admin)
+    public function viewAny()
     {
-        return $admin->hasPermissionTo('Index-Service')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Index-Service')
         ?  $this->allow()
         : $this->deny(' can not show Index Service');
     }
@@ -42,9 +43,10 @@ class ServicePolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(Admin $admin)
+    public function create()
     {
-        return $admin->hasPermissionTo('Create-Service')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Create-Service')
         ?  $this->allow()
         : $this->deny(' can not show Create Service');
     }
@@ -56,9 +58,10 @@ class ServicePolicy
      * @param  \App\Models\Service  $service
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(Admin $admin)
+    public function update()
     {
-        return $admin->hasPermissionTo('Edit-Service')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Edit-Service')
         ?  $this->allow()
         : $this->deny(' can not show Edit Service');
     }
@@ -70,9 +73,10 @@ class ServicePolicy
      * @param  \App\Models\Service  $service
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(Admin $admin)
+    public function delete()
     {
-        return $admin->hasPermissionTo('Delete-Service')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Delete-Service')
         ?  $this->allow()
         : $this->deny(' can not Delete');
     }

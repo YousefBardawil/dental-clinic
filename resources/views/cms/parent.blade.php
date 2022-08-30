@@ -235,9 +235,8 @@
 
             </ul>
           </li>
-
+          @canAny(['Index-Role','Create-Role'])
           <li class="nav-header">Role and Permission</li>
-
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
@@ -247,23 +246,28 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+            @can('Index-Role')
               <li class="nav-item">
                 <a href="{{ route('roles.index') }}" class="nav-link">
                   <i class="fas fa-list nav-icon"></i>
-
                   <p>Index</p>
                 </a>
               </li>
+              @endcan
+
+              @can('Create-Role')
               <li class="nav-item">
                 <a href="{{ route('roles.create') }}" class="nav-link">
                   <i class="fas fa-plus nav-icon text-light"></i>
                   <p>Create</p>
                 </a>
               </li>
+              @endcan
+
 
             </ul>
           </li>
-
+          @endcanAny
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
@@ -637,11 +641,14 @@
 
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; {{ now()->year }} - {{ now()->year+1 }} <a href="https://adminlte.io">{{ env('APP_NAME') }}</a></strong>
+    <strong>Copyright &copy; {{ now()->year }} - {{ now()->year+1 }} <a href="">{{ env('APP_NAME') }}</a></strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> {{ env('APP_VERSION') }}
     </div>
+    <div class="float-right d-none d-sm-inline-block mx-5">
+        <b>By</b> {{ env('APP_USERNAME') }}
+      </div>
   </footer>
 
   <!-- Control Sidebar -->

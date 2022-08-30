@@ -2,12 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Admin;
-use App\Models\Room;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class RoomPolicy
+class RolePolicy
 {
     use HandlesAuthorization;
 
@@ -20,19 +19,19 @@ class RoomPolicy
     public function viewAny()
     {
         $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Index-Room')
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Index-Role')
         ?  $this->allow()
-        : $this->deny(' can not show index Room');
+        : $this->deny(' can not Delete admin');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Room  $room
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Room $room)
+    public function view(User $user, Role $role)
     {
         //
     }
@@ -43,52 +42,43 @@ class RoomPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create()
+    public function create(User $user)
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Create-Room')
-        ?  $this->allow()
-        : $this->deny(' can not show create Room');
+        //
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Room  $room
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update()
+    public function update(User $user, Role $role)
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Edit-Room')
-        ?  $this->allow()
-        : $this->deny(' can not show Edit Room');
+        //
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Room  $room
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete()
+    public function delete(User $user, Role $role)
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Delete-Room')
-        ?  $this->allow()
-        : $this->deny(' can not Delete Room');
+        //
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Room  $room
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Room $room)
+    public function restore(User $user, Role $role)
     {
         //
     }
@@ -97,10 +87,10 @@ class RoomPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Room  $room
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Room $room)
+    public function forceDelete(User $user, Role $role)
     {
         //
     }

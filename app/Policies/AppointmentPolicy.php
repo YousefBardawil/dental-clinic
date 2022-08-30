@@ -17,9 +17,10 @@ class AppointmentPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(Admin $admin)
+    public function viewAny()
     {
-        return $admin->hasPermissionTo('Index-Appointment')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Index-Appointment')
         ?  $this->allow()
         : $this->deny(' can not show Index Appointment');
     }
@@ -42,9 +43,10 @@ class AppointmentPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(Admin $admin)
+    public function create()
     {
-        return $admin->hasPermissionTo('Create-Appointment')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Create-Appointment')
         ?  $this->allow()
         : $this->deny(' can not show Create Appointment');
     }
@@ -56,9 +58,10 @@ class AppointmentPolicy
      * @param  \App\Models\Appointment  $appointment
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(Admin $admin)
+    public function update()
     {
-        return $admin->hasPermissionTo('Edit-Appointment')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Edit-Appointment')
         ?  $this->allow()
         : $this->deny(' can not show Edit Appointment');
     }
@@ -70,9 +73,10 @@ class AppointmentPolicy
      * @param  \App\Models\Appointment  $appointment
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(Admin $admin)
+    public function delete()
     {
-        return $admin->hasPermissionTo('Delete-Appointment')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Delete-Appointment')
         ?  $this->allow()
         : $this->deny(' can not Delete Appointment');
     }

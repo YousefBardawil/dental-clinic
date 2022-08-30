@@ -18,9 +18,10 @@ class ClientPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(Admin $admin)
+    public function viewAny()
     {
-        return $admin->hasPermissionTo('Index-Client')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Index-Client')
         ?  $this->allow()
         : $this->deny(' can not show index client');
     }
@@ -43,9 +44,10 @@ class ClientPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(Admin $admin)
+    public function create()
     {
-        return $admin->hasPermissionTo('Create-Client')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Edit-Client')
         ?  $this->allow()
         : $this->deny(' can not show create Client');
     }
@@ -57,9 +59,10 @@ class ClientPolicy
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(Admin $admin )
+    public function update( )
     {
-        return $admin->hasPermissionTo('Edit-Client')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Edit-Client')
         ?  $this->allow()
         : $this->deny(' can not show Edit Client');
     }
@@ -71,9 +74,10 @@ class ClientPolicy
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(Admin $admin)
+    public function delete()
     {
-        return $admin->hasPermissionTo('Delete-client')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Delete-Client')
         ?  $this->allow()
         : $this->deny(' can not Delete client');
     }

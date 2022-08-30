@@ -74,10 +74,10 @@
             </div>
         </div>
         <!-- ./col -->
-{{--
+
         @php
-        use App\Models\Employee;
-        $count = Employee::count('id');
+        use App\Models\City;
+        $count = City::count('id');
         @endphp
 
         <div class="col-lg-4 col-6">
@@ -86,19 +86,19 @@
                 <div class="inner">
                     <h3>{{$count}}</h3>
 
-                    <h3>عدد الموظفين</h3>
+                    <h3>Cities</h3>
                 </div>
                 <div class="icon">
                     <i class="ion ion-bag"></i>
                 </div>
-                <a href="{{route('employees.index')}}" class="small-box-footer"> قراءة المزيد <i class="fa fa-arrow-circle-left"></i></a>
+                <a href="{{route('cities.index')}}" class="small-box-footer"> Read more <i class="fa fa-arrow-circle-left"></i></a>
             </div>
         </div>
 
 
         @php
-        use App\Models\Diploma;
-        $count = Diploma::count('id');
+        use App\Models\Room;
+        $count = Room::count('id');
         @endphp
 
         <div class="col-lg-4 col-6">
@@ -107,18 +107,18 @@
                 <div class="inner">
                     <h3>{{$count}}</h3>
 
-                    <h3>عدد الدبلومات</h3>
+                    <h3>Rooms</h3>
                 </div>
                 <div class="icon">
                     <i class="ion ion-bag"></i>
                 </div>
-                <a href="{{route('diplomas.index')}}" class="small-box-footer"> قراءة المزيد <i class="fa fa-arrow-circle-left"></i></a>
+                <a href="{{route('rooms.index')}}" class="small-box-footer"> read more<i class="fa fa-arrow-circle-left"></i></a>
             </div>
         </div>
 
-        @php
-        use App\Models\Group;
-        $count = Group::count('id');
+     @php
+        use App\Models\Service;
+        $count = Service::count('id');
         @endphp
 
         <div class="col-lg-4 col-6">
@@ -127,16 +127,16 @@
                 <div class="inner">
                     <h3>{{$count}}</h3>
 
-                    <h3>عدد المجموعات</h3>
+                    <h3>Services</h3>
                 </div>
                 <div class="icon">
                     <i class="ion ion-bag"></i>
                 </div>
-                <a href="{{route('groups.index')}}" class="small-box-footer"> قراءة المزيد <i class="fa fa-arrow-circle-left"></i></a>
+                <a href="{{route('services.index')}}" class="small-box-footer"> read more <i class="fa fa-arrow-circle-left"></i></a>
             </div>
         </div>
 
-    </div> --}}
+    </div>
 </div>
 
 @endsection

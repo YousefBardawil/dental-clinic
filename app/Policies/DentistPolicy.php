@@ -17,9 +17,10 @@ class DentistPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(Admin $admin)
+    public function viewAny()
     {
-        return $admin->hasPermissionTo('Index-Dentist')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Index-Dentist')
         ?  $this->allow()
         : $this->deny(' can not show index Dentist');
     }
@@ -42,9 +43,10 @@ class DentistPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(Admin $admin)
+    public function create()
     {
-        return $admin->hasPermissionTo('Create-Dentist')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Create-Dentist')
         ?  $this->allow()
         : $this->deny(' can not show create Dentist');
     }
@@ -56,9 +58,10 @@ class DentistPolicy
      * @param  \App\Models\Dentist  $dentist
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(Admin $admin)
+    public function update()
     {
-        return $admin->hasPermissionTo('Edit-Dentist')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Edit-Dentist')
         ?  $this->allow()
         : $this->deny(' can not show Edit Dentist');
     }
@@ -70,9 +73,10 @@ class DentistPolicy
      * @param  \App\Models\Dentist  $dentist
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(Admin $admin)
+    public function delete()
     {
-        return $admin->hasPermissionTo('Delete-Dentist')
+        $guard = auth('admin')->check() ? 'admin':'dentist';
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Delete-Dentist')
         ?  $this->allow()
         : $this->deny(' can not Delete Dentist');
     }
