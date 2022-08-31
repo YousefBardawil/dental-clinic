@@ -15,7 +15,7 @@ class PermissionController extends Controller
     public function index()
     {
         $permissions =Permission::orderBy('id','desc')->simplePaginate(5);
-
+        $this->authorize('viewAny', Permission::class);
         return response()->view('cms.spatie.permission.index',compact('permissions'));
     }
 
@@ -26,6 +26,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Permission::class);
         return response()->view('cms.spatie.permission.create');
     }
 
@@ -81,6 +82,7 @@ class PermissionController extends Controller
     public function edit($id)
     {
         $permissions =Permission::findOrFail($id);
+        $this->authorize('update', Permission::class);
         return response()->view('cms.spatie.permission.edit',compact('permissions'));
     }
 
@@ -128,6 +130,7 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete', Permission::class);
         $permissions = Permission::destroy($id);
     }
 }

@@ -27,7 +27,7 @@ class ContactController extends Controller
     public function create()
     {
         $this->authorize('create', Contact::class);
-        return response()->view('cms.contact.create');
+
     }
 
     /**
@@ -38,32 +38,7 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator($request->all(),[
-            'name' => 'required|String|min:3|max:20',
 
-           ]);
-
-           if(!$validator->fails()){
-               $contacts= new Contact();
-               $contacts->name = $request->get('name');
-               $contacts->email = $request->get('email');
-               $contacts->title = $request->get('title');
-               $contacts->message = $request->get('message');
-               $isSaved = $contacts->save();
-
-               if($isSaved){
-
-                   return response()->json(['icon'=>'success' , 'title' => 'created successfully' ] , 200);
-               }else {
-
-                   return response()->json(['icon'=>'error' , 'title' => 'created failed' ] , 400);
-
-               };
-
-           } else {
-
-               return response()->json(['icon'=>'error' , 'title'=>$validator->getMessageBag()->first() ] ,400 );
-           }
     }
 
     /**
@@ -87,6 +62,7 @@ class ContactController extends Controller
     public function edit(Contact $contact)
     {
         $this->authorize('update', Contact::class);
+
     }
 
     /**
@@ -110,6 +86,6 @@ class ContactController extends Controller
     public function destroy($id)
     {
         $this->authorize('delete', Contact::class);
-        $contatcs = Contact::destroy($id);
+
     }
 }

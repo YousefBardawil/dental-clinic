@@ -2,12 +2,11 @@
 
 namespace App\Policies;
 
-use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use App\Models\User;
-use Facade\FlareClient\Http\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class RolePolicy
+class PermissionPolicy
 {
     use HandlesAuthorization;
 
@@ -17,23 +16,22 @@ class RolePolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-
     public function viewAny()
     {
         $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Index-Role')
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Index-Permission')
         ?  $this->allow()
-        : $this->deny(' can not open INDEX-ROLE');
+        : $this->deny(' can not open Index-Permission');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Permission  $permission
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Role $role)
+    public function view(User $user, Permission $permission)
     {
         //
     }
@@ -47,49 +45,49 @@ class RolePolicy
     public function create()
     {
         $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Create-Role')
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Create-Permission')
         ?  $this->allow()
-        : $this->deny(' can not open Create-ROLE');
+        : $this->deny(' can not open Create-Permission');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Permission  $permission
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function update()
     {
         $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Edit-Role')
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Edit-Permission')
         ?  $this->allow()
-        : $this->deny(' can not open Edit-ROLE');
+        : $this->deny(' can not open Edit-Permission');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Permission  $permission
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function delete()
     {
         $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Delete-Role')
+        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Delete-Permission')
         ?  $this->allow()
-        : $this->deny(' can not open Delete-ROLE');
+        : $this->deny(' can not open Delete-Permission');
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Permission  $permission
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Role $role)
+    public function restore(User $user, Permission $permission)
     {
         //
     }
@@ -98,10 +96,10 @@ class RolePolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Permission  $permission
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Role $role)
+    public function forceDelete(User $user, Permission $permission)
     {
         //
     }

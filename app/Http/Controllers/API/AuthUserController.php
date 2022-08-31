@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\Dentist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -19,7 +20,7 @@ class AuthUserController extends Controller
         ]);
 
         if(!$validator->fails()){
-            
+
             $admins = new Admin();
             $admins->name = $request->get('name');
             $admins->email = $request->get('email');
@@ -49,7 +50,7 @@ class AuthUserController extends Controller
 
     }
 
-    public function login(Request $request){
+    public function loginadmin(Request $request){
 
         $validator = Validator($request->all() ,[
             'email' => 'required|email' ,
@@ -82,6 +83,41 @@ class AuthUserController extends Controller
 
         }
     }
+
+    public function logindentist(Request $request){
+
+        $validator = Validator($request->all() ,[
+            'email' => 'required|email' ,
+            'password' => 'required|string',
+        ]);
+
+        if(! $validator->fails()){
+            $dentists = Dentist::where('email' , '=' , $request->get('email'))->first();
+            if(Hash::check($request->get('password') , $dentists->password)){
+                $token = $dentists->createToken('dentist-api');
+                $dentists->setAttribute('token' , $token->accessToken);
+                return $token;
+                return response()->json([
+                    'status' => true ,
+                    'message' => '  تم تسجيل الدخول بنجاح'
+                ] , 200);
+            }
+            else{
+                return response()->json([
+                    'status' => false ,
+                    'message' => '  فشل تسجيل الدخول '
+                ] , 400);
+            }
+        }
+        else{
+            return response()->json([
+                'status' => false ,
+                'message' => $validator-> getMessageBag()->first()
+            ], 400);
+
+        }
+    }
+
     public function logout(Request $request){
 
 

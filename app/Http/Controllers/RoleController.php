@@ -14,10 +14,12 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
     {
         $roles = Role::withCount('permissions')->orderBy('id','desc')->simplePaginate(5);
-        // $this->authorize('viewAny', Role::class);
+        $this->authorize('viewAny', Role::class);
         return response()->view('cms.spatie.role.index',compact('roles'));
     }
 
@@ -28,6 +30,7 @@ class RoleController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Role::class);
         return response()->view('cms.spatie.role.create');
     }
 
@@ -83,6 +86,7 @@ class RoleController extends Controller
     public function edit($id)
     {
         $roles = Role::findOrFail($id);
+        $this->authorize('update', Role::class);
         return response()->view('cms.spatie.role.edit',compact('roles'));
     }
 
@@ -130,6 +134,7 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete', Role::class);
         $roles = Role::destroy($id);
     }
 }

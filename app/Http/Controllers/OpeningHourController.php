@@ -30,7 +30,7 @@ class OpeningHourController extends Controller
     {
         $openinghours = OpeningHour::orderBy('id','desc')->simplePaginate(5);
         $dentists= Dentist::all();
-     
+        $this->authorize('viewAny', OpeningHour::class);
         return response()->view('cms.opening-hours.indexall', compact('openinghours' , 'dentists'));
     }
 
@@ -41,6 +41,7 @@ class OpeningHourController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', OpeningHour::class);
 
     }
 
@@ -100,6 +101,7 @@ class OpeningHourController extends Controller
     {
         $openinghours = OpeningHour::findOrFail($id);
         $dentists = Dentist::all();
+        $this->authorize('update', OpeningHour::class);
         return response()->view('cms.opening-hours.edit' , compact('openinghours','dentists'));
     }
 
@@ -149,6 +151,7 @@ class OpeningHourController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete', OpeningHour::class);
         $openinghours = OpeningHour::destroy($id);
     }
 }

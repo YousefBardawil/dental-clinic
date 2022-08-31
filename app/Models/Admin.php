@@ -12,5 +12,19 @@ class Admin extends Authenticatable
 {
     use HasFactory , HasRoles , HasApiTokens;
 
+    // public function getNameAttribute() // name
+    // {
+    //     return $this->user->first_name;
+    // }
+
+    // public function getFullNameAttribute() // full_name
+    // {
+    //     return $this->user->first_name . " " . $this->user->last_name;
+    // }
+
+    public function getImagesAttribute()
+    {
+        return $this->image;
+    }
 
 }

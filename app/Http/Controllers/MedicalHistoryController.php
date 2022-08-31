@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
-use App\Models\Medical_history;
+use App\Models\MedicalHistory;
 use Illuminate\Http\Request;
 
 class MedicalHistoryController extends Controller
@@ -16,7 +16,7 @@ class MedicalHistoryController extends Controller
     public function indexmedicalhistories($id)
     {
 
-        $medicalhistories = Medical_history::where('client_id', $id)->orderBy('created_at', 'desc')->paginate(5);
+        $medicalhistories = MedicalHistory::where('client_id', $id)->orderBy('created_at', 'desc')->paginate(5);
         return response()->view('cms.med-history.index', compact('medicalhistories','id'));
     }
 
@@ -29,7 +29,8 @@ class MedicalHistoryController extends Controller
 
     public function index()
     {
-        $medicalhistories = Medical_history::orderBy('id','desc')->simplePaginate(5);
+        $medicalhistories = MedicalHistory::orderBy('id','desc')->simplePaginate(5);
+        $this->authorize('viewAny', MedicalHistory::class);
         return response()->view('cms.med-history.indexall',compact('medicalhistories'));
     }
 
@@ -40,6 +41,7 @@ class MedicalHistoryController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', MedicalHistory::class);
 
     }
 
@@ -55,7 +57,7 @@ class MedicalHistoryController extends Controller
 
         ]);
         if(!$validator->fails()){
-            $medicalhistories= new Medical_history();
+            $medicalhistories= new MedicalHistory();
             if(request()->hasFile('xray')){
                 $file = $request->file('xray');
                 $fileName =time() . 'xray.' . $file->getClientOriginalExtension();
@@ -101,10 +103,10 @@ class MedicalHistoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Medical_history  $medical_history
+     * @param  \App\Models\MedicalHistory  $MedicalHistory
      * @return \Illuminate\Http\Response
      */
-    public function show(Medical_history $medical_history)
+    public function show(MedicalHistory $MedicalHistory)
     {
         //
     }
@@ -112,13 +114,14 @@ class MedicalHistoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Medical_history  $medical_history
+     * @param  \App\Models\MedicalHistory  $MedicalHistory
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $medicalhistories = Medical_history::findOrFail($id);
+        $medicalhistories = MedicalHistory::findOrFail($id);
         $clients = Client::all();
+        $this->authorize('update', MedicalHistory::class);
         return response()->view('cms.med-history.edit' , compact('medicalhistories','clients'));
     }
 
@@ -126,7 +129,7 @@ class MedicalHistoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Medical_history  $medical_history
+     * @param  \App\Models\MedicalHistory  $MedicalHistory
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -135,7 +138,7 @@ class MedicalHistoryController extends Controller
 
         ]);
         if(!$validator->fails()){
-            $medicalhistories=  Medical_history::findOrFail($id);
+            $medicalhistories=  MedicalHistory::findOrFail($id);
             if(request()->hasFile('xray')){
                 $file = $request->file('xray');
                 $fileName =time() . 'xray.' . $file->getClientOriginalExtension();
@@ -183,12 +186,12 @@ class MedicalHistoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Medical_history  $medical_history
+     * @param  \App\Models\MedicalHistory  $MedicalHistory
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-
-        $medicalhistories = Medical_history::destroy($id);
+        $this->authorize('delete', MedicalHistory::class);
+        $medicalhistories = MedicalHistory::destroy($id);
     }
 }

@@ -184,62 +184,59 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="{{ asset('cms/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <img src="{{ asset('cms/dist/img/logo2.jpg') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">Dental Clinic</span>
     </a>
 
-    <!-- Sidebar -->
+     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="{{ asset('cms/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+        <div class="info">
+            @if (Auth::guard('admin')->id())
+            @if (auth('admin')->user()->images !='')
+            <img class="brand-image img-circle elevation-3" src="{{ asset('images/admin/' . auth('admin')->user()->images) }}"alt="User Image">
+            @else
+            <img class="brand-image img-circle elevation-3" src="{{ asset('images/userSolid.png') }}"alt="User Image">
+
+            @endif
+
+            @elseif (Auth::guard('dentist')->id())
+            @if (auth('dentist')->user()->images !='')
+            <img src="{{ asset('images/dentist/'.auth('dentist')->user()->images) }}" class="brand-image img-circle elevation-3" alt="User Image">
+            @else
+            <img class="brand-image img-circle elevation-3" src="{{ asset('images/userSolid.png') }}"alt="User Image">
+            @endif
+
+            @endif
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
-        </div>
+            <div class="info">
+                @if (Auth::guard('admin')->id())
+                <a href="#" class="d-block"> {{ auth('admin')->user()->name }}</a>
+                @elseif (Auth::guard('dentist')->id())
+                <a href="#" class="d-block"> {{ auth('dentist')->user()->name }}</a>
+                @else
+                <a href="#" class="d-block"> users</a>
+
+                @endif
+            </div>
+         </div>
       </div>
 
+
       <!-- SidebarSearch Form -->
-      <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
-        </div>
-      </div>
+
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-               Dashboard
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="./index.html" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v1</p>
-                </a>
-              </li>
 
-            </ul>
-          </li>
           @canAny(['Index-Role','Create-Role'])
           <li class="nav-header">Role and Permission</li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
+              <i class="fa-solid fa-hand-sparkles"></i>
               <p>
                 Role
                 <i class="fas fa-angle-left right"></i>
@@ -268,31 +265,38 @@
             </ul>
           </li>
           @endcanAny
+
+          @canAny(['Index-Permission','Create-Permission'])
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
-              <p>
+                <i class="fa-solid fa-person-circle-exclamation"></i>
+               <p>
                 Permission
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('permissions.index') }}" class="nav-link">
-                  <i class="fas fa-list nav-icon"></i>
+                @can('Index-Permission')
+                <li class="nav-item">
+                    <a href="{{ route('permissions.index') }}" class="nav-link">
+                      <i class="fas fa-list nav-icon"></i>
 
-                  <p>Index</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('permissions.create') }}" class="nav-link">
-                  <i class="fas fa-plus nav-icon text-light"></i>
-                  <p>Create</p>
-                </a>
-              </li>
+                      <p>Index</p>
+                    </a>
+                  </li>
+                @endcan
+                @can('Create-Permission')
+                <li class="nav-item">
+                    <a href="{{ route('permissions.create') }}" class="nav-link">
+                      <i class="fas fa-plus nav-icon text-light"></i>
+                      <p>Create</p>
+                    </a>
+                  </li>
+                @endcan
 
             </ul>
           </li>
+            @endcanAny
 
           <li class="nav-header">Users</li>
 
@@ -549,6 +553,30 @@
                 </ul>
               </li>
           @endcanAny
+
+          @canAny(['Index-MedicalHistory'])
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="fa-solid fa-business-time"></i>
+              <p class="mx-2">
+                Medical History
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+                @can('Index-MedicalHistory')
+                <li class="nav-item">
+                    <a href="{{ route('medical-histories.index') }}" class="nav-link">
+                      <i class="fas fa-list nav-icon"></i>
+
+                      <p>Index</p>
+                    </a>
+                  </li>
+                @endcan
+            </ul>
+          </li>
+      @endcanAny
+
 
           @canAny(['Index-ContactUs','Create-ContactUs'])
           <li class="nav-item">

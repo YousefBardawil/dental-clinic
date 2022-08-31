@@ -11,6 +11,22 @@ use Spatie\Permission\Traits\HasRoles;
 class Dentist extends Authenticatable
 {
     use HasFactory , HasRoles , HasApiTokens;
+
+    // public function getNameAttribute() // name
+    // {
+    //     return $this->user->first_name;
+    // }
+
+    // public function getFullNameAttribute() // full_name
+    // {
+    //     return $this->user->first_name . " " . $this->user->last_name;
+    // }
+
+    public function getImagesAttribute()
+    {
+        return $this->image;
+    }
+
     public function user(){
 
         return $this->morphOne(User::class ,'actor','actor_type','actor_id','id');

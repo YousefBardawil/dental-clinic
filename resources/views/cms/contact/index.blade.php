@@ -15,7 +15,6 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-            <a href="{{ route('contacts.create') }}" type="submit" class="btn btn-success">create new contact</a>
 
 
           <div class="card-tools">
