@@ -17,9 +17,17 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $clients = Client::with('city','user')->withCount('medicalhistories','appointments','reviews')->orderBy('id','desc')->simplePaginate(5);
+        if ($request->get('email')) {
+            $clients = Client::where('email', 'like', '%' . $request->email . '%');
+            $clients =$clients->simplePaginate(5);
+        }
+        if ($request->get('name')) {
+            $clients = Client::where('name', 'like', '%' . $request->name . '%');
+            $clients =$clients->simplePaginate(5);
+        }
         $this->authorize('viewAny', Client::class);
         return response()->view('cms.client.index',compact('clients'));
     }

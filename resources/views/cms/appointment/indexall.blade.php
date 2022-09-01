@@ -14,20 +14,32 @@
 <div class="row">
     <div class="col-12">
       <div class="card">
-        <div class="card-header">
+        {{-- <div class="card-header">
+            <form action="" method="get" style="margin-bottom:2%;">
+             <div class="row">
 
-          <div class="card-tools">
-            <div class="input-group input-group-sm" style="width: 150px;">
-              <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+               <div class="input-icon col-md-3">
+                   <input type="text" class="form-control" placeholder="Search By name" name="client_id"
+                   @if(request()->name)
+                     value={{ request()->appointment->client->name}}
+                   @endif>
+                   <span>
+                       <i class="flaticon2-search-1 text-muted"></i>
 
-              <div class="input-group-append">
-                <button type="submit" class="btn btn-default">
-                  <i class="fas fa-search"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+                   </span>
+
+               </div>
+               <div class="col-md-5">
+                   <button class="btn btn-danger btn-md" type="submit">Filter</button>
+                   <a href="{{route('appointments.index')}}" type="button" class="btn btn-info">End Search</a>
+                 </div>
+
+             </div>
+
+               </form>
+
+             </div>
+       </div> --}}
         <!-- /.card-header -->
         <div class="card-body table-responsive p-0">
           <table class="table table-hover text-nowrap">

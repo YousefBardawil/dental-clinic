@@ -12,9 +12,13 @@ class RoomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $rooms = Room::orderBy('id','desc')->simplePaginate(5);
+        if ($request->get('room_name')) {
+            $rooms = Room::where('room_name', 'like', '%' . $request->room_name . '%');
+            $rooms =$rooms->simplePaginate(5);
+        }
         $this->authorize('viewAny', Room::class);
         return response()->view('cms.room.index',compact('rooms'));
 

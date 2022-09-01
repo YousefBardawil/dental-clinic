@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
+use App\Models\Room;
 use Illuminate\Http\Request;
 
 class CityController extends Controller
@@ -12,9 +13,13 @@ class CityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $cities = City::orderBy('id','desc')->simplePaginate(5);
+        if ($request->get('city_name')) {
+            $cities = City::where('city_name', 'like', '%' . $request->city_name . '%');
+            $cities =$cities->simplePaginate(5);
+        }
         $this->authorize('viewAny', City::class);
         return response()->view('cms.city.index', compact('cities'));
     }

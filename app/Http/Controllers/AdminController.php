@@ -17,11 +17,27 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $admins = Admin::orderBy('id','desc')->simplePaginate(5);
+        if ($request->get('email')) {
+            $admins = Admin::where('email', 'like', '%' . $request->email . '%');
+            $admins =$admins->simplePaginate(5);
+        }
+        if ($request->get('name')) {
+            $admins = Admin::where('name', 'like', '%' . $request->name . '%');
+            $admins =$admins->simplePaginate(5);
+        }
+
+
+
+
+
         $this->authorize('viewAny', Admin::class);
         return response()->view('cms.admin.index',compact('admins'));
+
+
+
     }
 
     /**

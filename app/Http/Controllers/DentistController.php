@@ -16,10 +16,18 @@ class DentistController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
         $dentists = Dentist::with('city')->withCount('openinghours')->orderBy('id','desc')->simplePaginate(5);
+        if ($request->get('email')) {
+            $dentists = Dentist::where('email', 'like', '%' . $request->email . '%');
+            $dentists =$dentists->simplePaginate(5);
+        }
+        if ($request->get('name')) {
+            $dentists = Dentist::where('name', 'like', '%' . $request->name . '%');
+            $dentists =$dentists->simplePaginate(5);
+        }
         $this->authorize('viewAny', Dentist::class);
         return response()->view('cms.dentist.index',compact('dentists'));
     }
@@ -57,7 +65,7 @@ class DentistController extends Controller
                $dentists->password= Hash::make($request->get('password')) ;
                if(request()->hasFile('image')){
                 $image = $request->file('image');
-                $imageName =time() . 'image.' . $image->getClientOriginalExtension();
+                $imageName =time() . 'image.' . $image->getdentistOriginalExtension();
                 $image->move('images/dentist', $imageName);
                 $dentists->image = $imageName;
                  }
@@ -144,7 +152,7 @@ class DentistController extends Controller
 
                if(request()->hasFile('image')){
                 $image = $request->file('image');
-                $imageName =time() . 'image.' . $image->getClientOriginalExtension();
+                $imageName =time() . 'image.' . $image->getdentistOriginalExtension();
                 $image->move('images/dentist', $imageName);
                 $dentists->image = $imageName;
                  }

@@ -34,13 +34,17 @@ class AppointmentController extends Controller
         $this->authorize('create', Appointment::class);
         return response()->view('cms.appointment.create', compact('id' ,'services','rooms','dentists','clients' ));
     }
-    public function index()
+    public function index(Request $request)
     {
         $appointments = Appointment::orderBy('id','desc')->simplePaginate(5);
         $clients = Client::all();
         $dentists = Dentist::all();
         $services = Service::all();
         $rooms = Room::all();
+        // if ($request->get('client_id')) {
+        //     $appointments = Appointment::where('client_id', 'like', '%' . $request->name . '%');
+        //     $appointments =$appointments->simplePaginate(5);
+        // }
         $this->authorize('viewAny', Appointment::class);
 
         return response()->view('cms.appointment.indexall',compact('appointments' , 'clients' ,'dentists','rooms','services'));

@@ -13,9 +13,15 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $services = Service::orderBy('id','desc')->simplePaginate(5);
+
+        if ($request->get('service_name')) {
+            $services = Service::where('service_name', 'like', '%' . $request->service_name . '%');
+            $services =$services->simplePaginate(5);
+        }
+
         $this->authorize('viewAny', Service::class);
         return response()->view('cms.service.index',compact('services'));
     }
