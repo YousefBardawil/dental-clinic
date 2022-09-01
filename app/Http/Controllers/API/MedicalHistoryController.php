@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Medical_history;
+use App\Models\MedicalHistory;
 use Illuminate\Http\Request;
 
 class MedicalHistoryController extends Controller
@@ -15,7 +15,7 @@ class MedicalHistoryController extends Controller
      */
     public function index()
     {
-        $medicalhistories = Medical_history::all();
+        $medicalhistories = MedicalHistory::all();
         return response()->json([
             'status' => true,
             'message'  => 'Done correctly',
@@ -35,7 +35,7 @@ class MedicalHistoryController extends Controller
 
         ]);
         if(!$validator->fails()){
-            $medicalhistories= new Medical_history();
+            $medicalhistories= new MedicalHistory();
             if(request()->hasFile('xray')){
                 $file = $request->file('xray');
                 $fileName =time() . 'xray.' . $file->getClientOriginalExtension();
@@ -95,7 +95,7 @@ class MedicalHistoryController extends Controller
      */
     public function show($id)
     {
-        $medicalhistories = Medical_history::findOrFail($id);
+        $medicalhistories = MedicalHistory::findOrFail($id);
         if(is_null($medicalhistories)){
             return $this->sendError('city not found');
         }
@@ -120,7 +120,7 @@ class MedicalHistoryController extends Controller
 
         ]);
         if(!$validator->fails()){
-            $medicalhistories= Medical_history::findOrFail($id);
+            $medicalhistories= MedicalHistory::findOrFail($id);
             if(request()->hasFile('xray')){
                 $file = $request->file('xray');
                 $fileName =time() . 'xray.' . $file->getClientOriginalExtension();
@@ -180,7 +180,7 @@ class MedicalHistoryController extends Controller
      */
     public function destroy($id)
     {
-        $medicalhistories = Medical_history::destroy($id);
+        $medicalhistories = MedicalHistory::destroy($id);
 
         if($medicalhistories){
             return response()->json([

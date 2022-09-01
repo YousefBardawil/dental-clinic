@@ -15,7 +15,7 @@ class Client extends Authenticatable
     {
         return $this->image;
     }
-    
+
 
     public function reviews(){
         return $this->hasMany(Review::class);

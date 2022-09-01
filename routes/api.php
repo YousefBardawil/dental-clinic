@@ -49,10 +49,28 @@ Route::apiResource('roles', RoleController::class);
 Route::apiResource('permissions', PermissionController::class);
 
 Route::prefix('auth')->group(function(){
-    Route::post('register',[AuthUserController::class,'register']);
-    Route::post('login/admin' , [AuthUserController::class , 'loginadmin']);
-    Route::post('login/dentist' , [AuthUserController::class , 'logindentist']);
+    Route::post('register/admin',[AuthUserController::class,'registerAdmin']);
+    Route::post('register/dentist',[AuthUserController::class,'registerDentist']);
+    Route::post('register/client',[AuthUserController::class,'registerClient']);
 
+
+    Route::post('login/admin' , [AuthUserController::class , 'loginAdmin']);
+    Route::post('login/dentist' , [AuthUserController::class , 'loginDentist']);
+    Route::post('login/client' , [AuthUserController::class , 'loginClient']);
+    Route::post('resetPassword/admin' , [AuthUserController::class , 'resetPasswordAdmin']);
+
+
+
+});
+
+Route::prefix('auth')->middleware('auth:admin-api')->group(function(){
+    Route::get('admin/logout' , [AuthUserController::class , 'logoutAdmin']);
+});
+Route::prefix('auth')->middleware('auth:client-api')->group(function(){
+    Route::get('client/logout' , [AuthUserController::class , 'logoutClient']);
+});
+Route::prefix('auth')->middleware('auth:dentist-api')->group(function(){
+    Route::get('dentist/logout' , [AuthUserController::class , 'logoutDentist']);
 });
 
 
