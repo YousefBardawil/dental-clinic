@@ -19,10 +19,19 @@ class ReviewPolicy
      */
     public function viewAny()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Index-Review')
-        ?  $this->allow()
-        : $this->deny(' can not show Index Review');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Index-Review')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-Review');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Index-Review')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-Review');
+         }else{
+           return  auth()->user()->hasPermissionTo('Index-Review')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-Review');
+         }
     }
 
     /**
@@ -45,10 +54,19 @@ class ReviewPolicy
      */
     public function create()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Create-Review')
-        ?  $this->allow()
-        : $this->deny(' can not show Create Review');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Create-Review')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-Review');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Create-Review')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-Review');
+         }else{
+           return  auth()->user()->hasPermissionTo('Create-Review')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-Review');
+         }
     }
 
     /**
@@ -60,10 +78,19 @@ class ReviewPolicy
      */
     public function update()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Edit-Review')
-        ?  $this->allow()
-        : $this->deny(' can not show Edit Review');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Edit-Review')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-Review');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Edit-Review')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-Review');
+         }else{
+           return  auth()->user()->hasPermissionTo('Edit-Review')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-Review');
+         }
     }
 
     /**
@@ -75,10 +102,19 @@ class ReviewPolicy
      */
     public function delete()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Delete-Review')
-        ?  $this->allow()
-        : $this->deny(' can not Delete Review');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Delete-Review')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-Review');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Delete-Review')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-Review');
+         }else{
+           return  auth()->user()->hasPermissionTo('Delete-Review')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-Review');
+         }
     }
 
     /**

@@ -30,6 +30,7 @@
             <select class="form-control select2" name="guard_name" id="guard_name"  style="width: 100%;">
               <option value="admin">Admin</option>
               <option value="dentist">Dentist</option>
+              <option value="client">Client</option>
               <option value="web">User</option>
             </select>
           </div>

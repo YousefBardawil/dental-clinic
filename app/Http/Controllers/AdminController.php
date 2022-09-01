@@ -56,6 +56,13 @@ class AdminController extends Controller
             $roles = Role::findOrFail($request->get('role_id'));
             $admins->assignRole($roles->name);
             $admins->password = Hash::make($request->get('password')) ;
+            if(request()->hasFile('image')){
+                $image = $request->file('image');
+                $imageName =time() . 'image.' . $image->getClientOriginalExtension();
+                $image->move('images/admin', $imageName);
+                $admins->image = $imageName;
+                 }
+
             $isSaved = $admins->save();
 
             if($isSaved){
@@ -117,9 +124,15 @@ class AdminController extends Controller
             $admins->name = $request->get('name');
             $admins->email = $request->get('email');
 
+            if(request()->hasFile('image')){
+                $image = $request->file('image');
+                $imageName =time() . 'image.' . $image->getClientOriginalExtension();
+                $image->move('images/admin', $imageName);
+                $admins->image = $imageName;
+                 }
 
             $isUpdated = $admins->save();
-            return ['redirect' => route('admins.index' , $id)];
+            return ['redirect' => route('dashborad')];
 
 
             if($isUpdated){

@@ -20,10 +20,20 @@ class RolePolicy
 
     public function viewAny()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Index-Role')
-        ?  $this->allow()
-        : $this->deny(' can not open INDEX-ROLE');
+        if(auth('admin')->check()){
+           return auth()->user()->hasPermissionTo('Index-Role')
+            ?  $this->allow()
+            : $this->deny(' can not open INDEX-ROLE');
+        }elseif(auth('dentist')->check()){
+           return auth()->user()->hasPermissionTo('Index-Role')
+            ?  $this->allow()
+            : $this->deny(' can not open INDEX-ROLE');
+        }else{
+          return  auth()->user()->hasPermissionTo('Index-Role')
+            ?  $this->allow()
+            : $this->deny(' can not open INDEX-ROLE');
+        }
+
     }
 
     /**
@@ -46,10 +56,19 @@ class RolePolicy
      */
     public function create()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Create-Role')
-        ?  $this->allow()
-        : $this->deny(' can not open Create-ROLE');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Create-Role')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-ROLE');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Create-Role')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-ROLE');
+         }else{
+           return  auth()->user()->hasPermissionTo('Create-Role')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-ROLE');
+         }
     }
 
     /**
@@ -61,10 +80,19 @@ class RolePolicy
      */
     public function update()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Edit-Role')
-        ?  $this->allow()
-        : $this->deny(' can not open Edit-ROLE');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Edit-Role')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-ROLE');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Edit-Role')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-ROLE');
+         }else{
+           return  auth()->user()->hasPermissionTo('Edit-Role')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-ROLE');
+         }
     }
 
     /**
@@ -76,10 +104,19 @@ class RolePolicy
      */
     public function delete()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Delete-Role')
-        ?  $this->allow()
-        : $this->deny(' can not open Delete-ROLE');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Delete-Role')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-ROLE');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Delete-Role')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-ROLE');
+         }else{
+           return  auth()->user()->hasPermissionTo('Delete-Role')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-ROLE');
+         }
     }
 
     /**

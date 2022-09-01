@@ -44,6 +44,12 @@
             <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
           </div>
 
+          <div class="form-group col-md-6">
+            <label for="image">Image</label>
+                <input type="file" class="form_control" id="image" name="image" placeholder="Enter image">
+
+          </div>
+
       </div>
       <!-- /.card-body -->
 
@@ -65,6 +71,9 @@
    formData.append('email' ,document.getElementById('email').value );
    formData.append('password' ,document.getElementById('password').value );
    formData.append('role_id' ,document.getElementById('role_id').value );
+   formData.append('image' ,document.getElementById('image').files[0]);
+
+
 
 
 

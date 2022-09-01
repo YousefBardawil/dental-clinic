@@ -18,6 +18,7 @@ class CreateAdminsTable extends Migration
             $table->string('name');
             $table->string('password');
             $table->string('email')->unique();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

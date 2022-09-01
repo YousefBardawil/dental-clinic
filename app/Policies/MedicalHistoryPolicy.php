@@ -18,10 +18,20 @@ class MedicalHistoryPolicy
      */
     public function viewAny()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Index-MedicalHistory')
-        ?  $this->allow()
-        : $this->deny('can not show Index-MedicalHistory');
+
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Index-MedicalHistory')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-MedicalHistory');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Index-MedicalHistory')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-MedicalHistory');
+         }else{
+           return  auth()->user()->hasPermissionTo('Index-MedicalHistory')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-MedicalHistory');
+         }
     }
 
     /**
@@ -44,10 +54,19 @@ class MedicalHistoryPolicy
      */
     public function create()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Create-MedicalHistory')
-        ?  $this->allow()
-        : $this->deny('can not show Create-MedicalHistory');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Create-MedicalHistory')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-MedicalHistory');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Create-MedicalHistory')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-MedicalHistory');
+         }else{
+           return  auth()->user()->hasPermissionTo('Create-MedicalHistory')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-MedicalHistory');
+         }
     }
 
     /**
@@ -59,10 +78,19 @@ class MedicalHistoryPolicy
      */
     public function update()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Edit-MedicalHistory')
-        ?  $this->allow()
-        : $this->deny('can not show Edit-MedicalHistory');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Edit-MedicalHistory')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-MedicalHistory');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Edit-MedicalHistory')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-MedicalHistory');
+         }else{
+           return  auth()->user()->hasPermissionTo('Edit-MedicalHistory')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-MedicalHistory');
+         }
     }
 
     /**
@@ -74,10 +102,19 @@ class MedicalHistoryPolicy
      */
     public function delete()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Delete-MedicalHistory')
-        ?  $this->allow()
-        : $this->deny('can not show Delete-MedicalHistory');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Delete-MedicalHistory')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-MedicalHistory');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Delete-MedicalHistory')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-MedicalHistory');
+         }else{
+           return  auth()->user()->hasPermissionTo('Delete-MedicalHistory')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-MedicalHistory');
+         }
     }
 
     /**

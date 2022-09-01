@@ -17,13 +17,14 @@ class MedicalHistoryController extends Controller
     {
 
         $medicalhistories = MedicalHistory::where('client_id', $id)->orderBy('created_at', 'desc')->paginate(5);
+        $this->authorize('viewAny', MedicalHistory::class);
         return response()->view('cms.med-history.index', compact('medicalhistories','id'));
     }
 
 
     public function createmedicalhistories($id)
     {
-
+        $this->authorize('create', MedicalHistory::class);
         return response()->view('cms.med-history.create', compact('id' ));
     }
 
@@ -41,7 +42,6 @@ class MedicalHistoryController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', MedicalHistory::class);
 
     }
 

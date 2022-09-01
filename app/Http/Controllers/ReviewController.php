@@ -17,12 +17,14 @@ class ReviewController extends Controller
     {
 
         $reviews = Review::where('client_id', $id)->orderBy('created_at', 'desc')->paginate(5);
+        $this->authorize('viewAny', Review::class);
         return response()->view('cms.review.index', compact('reviews','id'));
     }
 
 
     public function createreview($id)
     {
+        $this->authorize('create', Review::class);
         return response()->view('cms.review.create',compact('id'));
     }
     public function index()
@@ -40,7 +42,6 @@ class ReviewController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Review::class);
 
     }
 

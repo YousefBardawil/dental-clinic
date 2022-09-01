@@ -19,10 +19,20 @@ class CityPolicy
      */
     public function viewAny()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Index-City')
-        ?  $this->allow()
-        : $this->deny(' can not show index City');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Index-City')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-City');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Index-City')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-City');
+         }else{
+           return  auth()->user()->hasPermissionTo('Index-City')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-City');
+         }
+
     }
 
     /**
@@ -45,10 +55,21 @@ class CityPolicy
      */
     public function create()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Create-City')
-        ?  $this->allow()
-        : $this->deny(' can not show Create City');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Create-City')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-City');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Create-City')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-City');
+         }else{
+           return  auth()->user()->hasPermissionTo('Create-City')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-City');
+         }
+
+
     }
 
     /**
@@ -60,10 +81,19 @@ class CityPolicy
      */
     public function update()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Edit-City')
-        ?  $this->allow()
-        : $this->deny(' can not show Edit City');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Edit-City')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-City');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Edit-City')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-City');
+         }else{
+           return  auth()->user()->hasPermissionTo('Edit-City')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-City');
+         }
     }
 
     /**
@@ -75,10 +105,19 @@ class CityPolicy
      */
     public function delete()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Delete-City')
-        ?  $this->allow()
-        : $this->deny(' can not Delete');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Delete-City')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-City');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Delete-City')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-City');
+         }else{
+           return  auth()->user()->hasPermissionTo('Delete-City')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-City');
+         }
     }
 
     /**

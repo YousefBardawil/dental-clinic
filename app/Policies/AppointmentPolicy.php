@@ -19,10 +19,24 @@ class AppointmentPolicy
      */
     public function viewAny()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Index-Appointment')
-        ?  $this->allow()
-        : $this->deny(' can not show Index Appointment');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Index-Appointment')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-Appointment');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Index-Appointment')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-Appointment');
+         }else{
+           return  auth()->user()->hasPermissionTo('Index-Appointment')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-Appointment');
+         }
+
+        // $guard = auth('admin')->check() ? 'admin':'dentist';
+        // return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Index-Appointment')
+        // ?  $this->allow()
+        // : $this->deny(' can not show Index Appointment');
     }
 
     /**
@@ -32,9 +46,9 @@ class AppointmentPolicy
      * @param  \App\Models\Appointment  $appointment
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Appointment $appointment)
+    public function view()
     {
-        //
+        
     }
 
     /**
@@ -45,10 +59,24 @@ class AppointmentPolicy
      */
     public function create()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Create-Appointment')
-        ?  $this->allow()
-        : $this->deny(' can not show Create Appointment');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Create-Appointment')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-Appointment');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Create-Appointment')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-Appointment');
+         }else{
+           return  auth()->user()->hasPermissionTo('Create-Appointment')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-Appointment');
+         }
+
+        // $guard = auth('admin')->check() ? 'admin':'dentist';
+        // return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Create-Appointment')
+        // ?  $this->allow()
+        // : $this->deny(' can not show Create Appointment');
     }
 
     /**
@@ -60,10 +88,21 @@ class AppointmentPolicy
      */
     public function update()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Edit-Appointment')
-        ?  $this->allow()
-        : $this->deny(' can not show Edit Appointment');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Edit-Appointment')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-Appointment');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Edit-Appointment')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-Appointment');
+         }else{
+           return  auth()->user()->hasPermissionTo('Edit-Appointment')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-Appointment');
+         }
+
+
     }
 
     /**
@@ -75,10 +114,21 @@ class AppointmentPolicy
      */
     public function delete()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Delete-Appointment')
-        ?  $this->allow()
-        : $this->deny(' can not Delete Appointment');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Delete-Appointment')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-Appointment');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Delete-Appointment')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-Appointment');
+         }else{
+           return  auth()->user()->hasPermissionTo('Delete-Appointment')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-Appointment');
+         }
+
+
     }
 
     /**

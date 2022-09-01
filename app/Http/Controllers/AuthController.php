@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\City;
+use App\Models\Client;
 use App\Models\Dentist;
 use App\Models\User;
 use Illuminate\Contracts\Auth\Guard;
@@ -17,8 +18,9 @@ class AuthController extends Controller
 
     public function loginAs(Request $request){
         $admins = Auth::guest('admin');
-        $dentists = Auth::guest();
-        return response()->view('cms.auth.loginas' ,compact('admins' , 'dentists'));
+        $dentists = Auth::guest('dentist');
+        $clients = Auth::guest('client');
+        return response()->view('cms.auth.loginas' ,compact('admins' , 'dentists' ,'clients'));
     }
 
 
@@ -59,78 +61,45 @@ class AuthController extends Controller
 
 
      public function logout(Request $request){
-        $guard = auth('admin')->check() ? 'admin' : 'dentist';
-          Auth::guard($guard)->logout();
-          $request->session()->invalidate();
+
+
+        if(auth('admin')->check()){
+            Auth::guard('admin')->logout();
+            $request->session()->invalidate();
+        }elseif(auth('dentist')->check()){
+            Auth::guard('dentist')->logout();
+            $request->session()->invalidate();
+        }else{
+            Auth::guard('client')->logout();
+            $request->session()->invalidate();
+        }
+
           return redirect()->route('view.loginas');
 
      }
 
      public function editProfile(){
-        $guard = auth('dentist')->check();
-        if($guard){
+
+        if(auth('dentist')->check()){
             $dentists = Dentist::findOrFail(Auth::guard('dentist')->id());
             $cities = City::all();
             return response()->view('cms.auth.dentisteditprofile', compact('dentists' , 'cities'));
-        }else{
+        }elseif(auth('admin')->check()){
             $admins = Admin::findOrFail(Auth::guard('admin')->id());
             $roles = Role::where('guard_name' ,'admin')->get();
             return response()->view('cms.auth.admineditprofile',compact('roles','admins'));
 
+        }else{
+            $clients = Client::findOrFail(Auth::guard('client')->id());
+            $cities = City::all();
+            return response()->view('cms.auth.clienteditprofile', compact('clients' , 'cities'));
         }
 
 
        }
 
-       public function updateProfile(Request $request){
-          $validator = Validator($request->all(),[
-            //   'first_name' => 'required|String|min:3|max:20',
-            //   'image' => 'required|image|max:2048|mimes:png,jpg,jpeg,pdf',
-
-
-             ]);
-
-             if(!$validator->fails()){
-                 $dentists= Dentist::findorFail(Auth::guard('dentist')->id());
-                 $dentists->email = $request->get('email');
-                 $dentists->name = $request->get('name');
-                 $isSaved = $dentists->save();
-
-                 if($isSaved){
-
-                  $users= $dentists->user;
-
-                  if(request()->hasFile('image')){
-                      $image = $request->file('image');
-                      $imageName =time() . 'image.' . $image->getClientOriginalExtension();
-                      $image->move('images/dentist', $imageName);
-                      $users->image = $imageName;
-                  }
-
-                  $users->mobile = $request->get('mobile');
-                  $users->gender = $request->get('gender');
-                  $users->status = $request->get('status');
-                  $users->age = $request->get('age');
-                  $users->date_of_birth = $request->get('date_of_birth');
-                  $users->city_id = $request->get('city_id');
-                  $users->actor()->associate($dentists);
-
-                  $isUpdated=$users->save();
-                  return ['redirect' => route('dentists.index')];
-                  return response()->json(['icon'=>'success' , 'title' => $isUpdated ? 'updated succesfully' : 'updated filed' ] , $isSaved ? 200 : 400);
-              }else {
-
-                  return response()->json(['icon'=>'error' , 'title' => 'updated failed' ] , 400);
-
-              }
-
-             } else {
-
-                 return response()->json(['icon'=>'error' , 'title'=>$validator->getMessageBag()->first() ] ,400 );
-             }
-            }
-
             public function registerAs(){
+
                 return response()->view('cms.auth.registeras');
             }
 
@@ -139,6 +108,8 @@ class AuthController extends Controller
                 $roles = Role::where('guard_name' ,'admin')->get();
                 return response()->view('cms.auth.registerAsAdmin',compact('roles'));
             }
+
+
 
             public function registerAdmin(Request $request){
                 $validator = Validator($request->all(),[
@@ -173,7 +144,6 @@ class AuthController extends Controller
             public function showRegisterDentist(){
                 $cities =City::all();
                 $roles = Role::where('guard_name' ,'dentist')->get();
-
                 return response()->view('cms.auth.registerAsDentist',compact('cities','roles'));
             }
 
@@ -197,6 +167,52 @@ class AuthController extends Controller
                         $dentists->assignRole($roles->name);
                         $users->city_id = $request->get('city_id');
                         $users->actor()->associate($dentists);
+
+                        $isSaved = $users->save();
+                         return response()->json(['icon'=>'success' , 'title' => $isSaved ? 'created succesfully' : 'created failed' ] , $isSaved ? 200 : 400);
+                       }
+                       else {
+
+                        return response()->json(['icon'=>'error' , 'title' => 'created failed' ] , 400);
+
+                    }
+
+                   }
+                   else{
+
+                       return response()->json(['icon'=>'error' , 'title'=>$validator->getMessageBag()->first() ] ,400 );
+                   }
+            }
+
+            public function showregisterClient(){
+
+                $roles = Role::where('guard_name' ,'client')->get();
+                $cities =City::all();
+
+                return response()->view('cms.auth.registerAsClient',compact('roles','cities'));
+            }
+
+
+            public function registerClient(Request $request){
+                $validator = Validator($request->all(),[
+                    'name' => 'required|String|min:3|max:20',
+
+                   ]);
+
+                   if(!$validator->fails()){
+                       $clients= new Client();
+                       $clients->email = $request->get('email');
+                       $clients->name = $request->get('name');
+                       $clients->password= Hash::make($request->get('password')) ;
+                       $isSaved = $clients->save();
+
+                       if($isSaved){
+
+                        $users= new User();
+                        $roles = Role::findOrFail($request->get('role_id'));
+                        $clients->assignRole($roles->name);
+                        $users->city_id = $request->get('city_id');
+                        $users->actor()->associate($clients);
 
                         $isSaved = $users->save();
                          return response()->json(['icon'=>'success' , 'title' => $isSaved ? 'created succesfully' : 'created failed' ] , $isSaved ? 200 : 400);

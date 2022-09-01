@@ -8,6 +8,7 @@ use App\Models\Client;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class ClientController extends Controller
 {
@@ -32,7 +33,8 @@ class ClientController extends Controller
     {
       $cities = City::all();
       $this->authorize('create', Client::class);
-      return response()->view('cms.client.create',compact('cities'));
+      $roles = Role::where('guard_name' ,'client')->get();
+      return response()->view('cms.client.create',compact('cities','roles'));
     }
 
     /**
@@ -64,6 +66,7 @@ class ClientController extends Controller
                if($isSaved){
 
                 $users= new User();
+                $roles = Role::findOrFail($request->get('role_id'));
                 $users->mobile = $request->get('mobile');
                 $users->gender = $request->get('gender');
                 $users->status = $request->get('status');
@@ -114,7 +117,7 @@ class ClientController extends Controller
         $clients =Client::findOrFail($id);
         $this->authorize('update', Client::class);
         $cities=City::all();
-        return response()->view('cms.client.edit',compact('cities','clients'));
+        return response()->view('cms.client.edit',compact('cities','clients','roles'));
     }
 
     /**

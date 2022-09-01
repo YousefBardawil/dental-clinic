@@ -20,8 +20,7 @@ class AppointmentController extends Controller
     {
 
         $appointments = Appointment::where('client_id', $id)->orderBy('created_at', 'desc')->paginate(5);
-
-
+        $this->authorize('viewAny', Appointment::class);
         return response()->view('cms.appointment.index', compact('appointments','id'));
     }
 
@@ -32,7 +31,7 @@ class AppointmentController extends Controller
         $rooms = Room::all();
         $dentists = Dentist::all();
         $clients = Client::all();
-
+        $this->authorize('create', Appointment::class);
         return response()->view('cms.appointment.create', compact('id' ,'services','rooms','dentists','clients' ));
     }
     public function index()
@@ -54,7 +53,6 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Appointment::class);
     }
 
     /**

@@ -56,9 +56,14 @@
                     <td>
                         <a href="{{ route('role.permissions.index', $role->id) }}" class="btn btn-success" >({{ $role->permissions_count }}) permission/s</a>
                     </td>
-                    @else
+                    @elseif($role->guard_name == 'dentist')
                     <td>
                         <a href="{{ route('role.permission.index', $role->id) }}" class="btn btn-success" >({{ $role->permissions_count }}) permission/s</a>
+                    </td>
+
+                    @else
+                    <td>
+                        <a href="{{ route('role.permissionC.index', $role->id) }}" class="btn btn-success" >({{ $role->permissions_count }}) permission/s</a>
                     </td>
 
                     @endif

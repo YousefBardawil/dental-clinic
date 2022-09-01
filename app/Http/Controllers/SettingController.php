@@ -13,7 +13,7 @@ class SettingController extends Controller
     }
 
     public function updatepassword(Request $request){
-        $guard = auth('dentist')->check() ? 'admin':'dentist';
+      
         $validator = Validator($request->all(),[
             'password' => 'required|string|min:6|max:20',
             'new_password' => 'required|string|min:6|max:20',
@@ -23,7 +23,7 @@ class SettingController extends Controller
 
         if(!$validator->fails()){
         if(Hash::check($request->get('password'), Auth::user()->password)){
-          $user = auth('dentist')->user();
+          $user = auth()->user();
            $user->password = Hash::make($request->get('new_password'));
            $isSaved = $user->save();
 

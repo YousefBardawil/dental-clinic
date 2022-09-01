@@ -20,10 +20,19 @@ class ClientPolicy
      */
     public function viewAny()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Index-Client')
-        ?  $this->allow()
-        : $this->deny(' can not show index client');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Index-Client')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-Client');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Index-Client')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-Client');
+         }else{
+           return  auth()->user()->hasPermissionTo('Index-Client')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-Client');
+         }
     }
 
     /**
@@ -46,10 +55,19 @@ class ClientPolicy
      */
     public function create()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Edit-Client')
-        ?  $this->allow()
-        : $this->deny(' can not show create Client');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Create-Client')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-Client');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Create-Client')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-Client');
+         }else{
+           return  auth()->user()->hasPermissionTo('Create-Client')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-Client');
+         }
     }
 
     /**
@@ -61,10 +79,19 @@ class ClientPolicy
      */
     public function update( )
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Edit-Client')
-        ?  $this->allow()
-        : $this->deny(' can not show Edit Client');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Edit-Client')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-Client');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Edit-Client')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-Client');
+         }else{
+           return  auth()->user()->hasPermissionTo('Edit-Client')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-Client');
+         }
     }
 
     /**
@@ -76,10 +103,19 @@ class ClientPolicy
      */
     public function delete()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Delete-Client')
-        ?  $this->allow()
-        : $this->deny(' can not Delete client');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Delete-Client')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-Client');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Delete-Client')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-Client');
+         }else{
+           return  auth()->user()->hasPermissionTo('Delete-Client')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-Client');
+         }
     }
 
     /**

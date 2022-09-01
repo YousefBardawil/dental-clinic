@@ -30,7 +30,8 @@
             <select class="form-control select2" name="guard_name" id="guard_name"  style="width: 100%;">
                 <option >gurad name</option>
               <option value="admin" @if($permissions->guard_name == 'admin') selected @endif>Admin</option>
-              <option value="dentist" @if($permissions->guard_name == 'dentist' )selected  @endif>Author</option>
+              <option value="dentist" @if($permissions->guard_name == 'dentist' )selected  @endif>Dentist</option>
+              <option value="client" @if($permissions->guard_name == 'client' )selected  @endif>Client</option>
               <option value="web" @if($permissions->guard_name == 'web' ) selected @endif>User</option>
             </select>
           </div>

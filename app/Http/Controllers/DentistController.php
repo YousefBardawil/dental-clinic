@@ -162,7 +162,7 @@ class DentistController extends Controller
                 $users->actor()->associate($dentists);
 
                 $isUpdated = $users->save();
-                return ['redirect' => route('dentists.index' , $id)];
+                return ['redirect' => route('dashborad')];
 
                  return response()->json(['icon'=>'success' , 'title' => $isUpdated ? 'updated succesfully' : 'updated failed' ] , $isUpdated ? 200 : 400);
                }

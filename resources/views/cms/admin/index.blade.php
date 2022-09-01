@@ -38,6 +38,7 @@
                 <th>ID</th>
                 <th>Admin_name</th>
                 <th>Email</th>
+                <th>Image</th>
                 <th>created date</th>
                 <th>setting</th>
 
@@ -51,6 +52,9 @@
                     <td>{{ $Admin->id }}</td>
                     <td>{{ $Admin->name }}</td>
                     <td>{{ $Admin->email }}</td>
+                    <td>
+                        <img class="img-circle img-bordered-sm" src="{{ asset('images/admin/'. $Admin->image)  }}" width="50" alt="">
+                    </td>
                     <td>{{ $Admin->created_at }}</td>
                     <td>
                         <div class="btn-group">

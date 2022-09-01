@@ -19,10 +19,20 @@ class ServicePolicy
      */
     public function viewAny()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Index-Service')
-        ?  $this->allow()
-        : $this->deny(' can not show Index Service');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Index-Service')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-Service');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Index-Service')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-Service');
+         }else{
+           return  auth()->user()->hasPermissionTo('Index-Service')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-Service');
+         }
+
     }
 
     /**
@@ -45,10 +55,19 @@ class ServicePolicy
      */
     public function create()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Create-Service')
-        ?  $this->allow()
-        : $this->deny(' can not show Create Service');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Create-Service')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-Service');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Create-Service')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-Service');
+         }else{
+           return  auth()->user()->hasPermissionTo('Create-Service')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-Service');
+         }
     }
 
     /**
@@ -60,10 +79,19 @@ class ServicePolicy
      */
     public function update()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Edit-Service')
-        ?  $this->allow()
-        : $this->deny(' can not show Edit Service');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Edit-Service')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-Service');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Edit-Service')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-Service');
+         }else{
+           return  auth()->user()->hasPermissionTo('Edit-Service')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-Service');
+         }
     }
 
     /**
@@ -75,10 +103,19 @@ class ServicePolicy
      */
     public function delete()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Delete-Service')
-        ?  $this->allow()
-        : $this->deny(' can not Delete');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Delete-Service')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-Service');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Delete-Service')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-Service');
+         }else{
+           return  auth()->user()->hasPermissionTo('Delete-Service')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-Service');
+         }
     }
 
     /**

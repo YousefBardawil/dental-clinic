@@ -1,9 +1,9 @@
 @extends('cms.parent');
 
-@section('tittle' , 'create new client')
+@section('tittle' , 'edit new client')
 
-@section('main-tittle' , 'create client')
-@section('sub-tittle' , 'create')
+@section('main-tittle' , 'edit client')
+@section('sub-tittle' , 'edit')
 
 @section('styles')
 
@@ -15,65 +15,51 @@
 
 <div class="card card-primary">
     <div class="card-header">
-      <h3 class="card-title">Create client </h3>
+      <h3 class="card-title">edit client </h3>
     </div>
     <!-- /.card-header -->
     <!-- form start -->
     <form>
       <div class="card-body">
-        <div class="form-group col-md-4">
-            <label for="">Role-name</label>
-            <select class="form-control select2" name="role_id" style="width: 100%;" id="role_id">
-
-                   @foreach ($roles as $role )
-                   <option value="{{ $role->id }}"> {{ $role->name }} </option>
-                   @endforeach
-            </select>
-          </div>
-
            <div class="row">
             <div class="form-group col-md-4">
                 <label for="name">name</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
+                <input type="text" class="form-control" id="name" value="{{ $clients->name }}" name="first_name" placeholder="">
               </div>
-
-                <div class="form-group col-md-4">
-                  <label for="mobile ">Mobile</label>
-                  <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter mobile number">
+              <div class="form-group col-md-4">
+                  <label for="age">age</label>
+                  <input type="text" class="form-control" id="age" value="{{ $clients->user->age }}" name="age" placeholder="">
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="age">age</label>
-                    <input type="number" class="form-control" id="age" name="age" placeholder="Enter your Age">
-                  </div>
+                  <label for="mobile ">Mobile</label>
+                  <input type="text" class="form-control" id="mobile" value="{{ $clients->user->mobile }}" name="mobile" placeholder="">
+                </div>
            </div>
              <div class="row">
                 <div class="form-group col-md-4">
                     <label for="date_of_birth">Date_of_Birth</label>
-                    <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" placeholder="">
+                    <input type="date" class="form-control" value="{{ $clients->user->date_of_birth }}" id="date_of_birth" name="date_of_birth" placeholder="">
                   </div>
-                   <div class="form-group col-md-4">
+                  <div class="form-group col-md-4">
                     <label for="email">email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
-                  </div> <div class="form-group">
-                    <label for="client_name col-md-4">password</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
+                    <input type="email" class="form-control" id="email" value="{{ $clients->email }}" name="email" placeholder="Enter your email">
                   </div>
-             </div>
+                  <div class="form-group col-md-4">
+                    <label for="gender">Gender</label>
+                    <select class="form-control select2" name="gender" id="gender"  style="width: 100%;">
+                        <option selected >{{ $clients->user->gender }}</option>
+                      <option value="male">male</option>
+                      <option value="female">female</option>
+                    </select>
+                  </div>
 
 
 
           <div class="row">
-            <div class="form-group col-md-4">
-                <label for="gender">Gender</label>
-                <select class="form-control select2" name="gender" id="gender"  style="width: 100%;">
-                  <option value="male">male</option>
-                  <option value="female">female</option>
-                </select>
-              </div>
-
-              <div class="form-group col-md-4">
+              <div class="form-group col-md-6">
                   <label for="status">Status</label>
                   <select class="form-control select2" name="status" id="status"  style="width: 100%;">
+                    <option selected >{{ $clients->user->status }}</option>
                     <option value="single">single</option>
                     <option value="married">married</option>
                   </select>
@@ -81,10 +67,10 @@
 
 
 
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-6">
               <label for="">city</label>
               <select class="form-control select2" name="city_id" style="width: 100%;" id="city_id">
-
+                <option selected value="{{$clients->user->city->id}} " >{{$clients->user->city->city_name}} </option>
                      @foreach ($cities as $city )
                      <option value="{{ $city->id }}"> {{ $city->city_name }} </option>
                      @endforeach
@@ -101,12 +87,12 @@
 
 
 
+
       </div>
       <!-- /.card-body -->
 
       <div class="card-footer">
-        <a href="{{ route('clients.index') }}" type="submit" class="btn btn-success">Index page</a>
-        <button onclick="performStore()" type="button" class="btn btn-primary">Store</button>
+        <button onclick="performUpdate({{ $clients->id }})" type="button" class="btn btn-primary">Update</button>
       </div>
     </form>
   </div>
@@ -117,26 +103,26 @@
 
 <script>
 
-$('.city_id').select2({
+
+$('.country_id').select2({
     theme:'bootstrap4'
   })
 
-  function performStore(){
+  function performUpdate(id){
     let formData = new FormData;
    formData.append('name' ,document.getElementById('name').value );
+   formData.append('age' ,document.getElementById('age').value );
    formData.append('mobile' ,document.getElementById('mobile').value );
    formData.append('date_of_birth' ,document.getElementById('date_of_birth').value );
    formData.append('email' ,document.getElementById('email').value );
-   formData.append('password' ,document.getElementById('password').value );
    formData.append('gender' ,document.getElementById('gender').value );
-   formData.append('age' ,document.getElementById('age').value );
    formData.append('city_id' ,document.getElementById('city_id').value );
    formData.append('status' ,document.getElementById('status').value );
-   formData.append('role_id' ,document.getElementById('role_id').value );
    formData.append('image' ,document.getElementById('image').files[0]);
 
 
-   store('/cms/clients',formData);
+
+  storeRoute('/cms/clients_update/'+id ,formData);
 
 
   }

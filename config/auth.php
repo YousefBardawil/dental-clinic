@@ -48,6 +48,10 @@ return [
             'driver' => 'session',
             'provider' => 'dentists',
         ],
+        'client' => [
+            'driver' => 'session',
+            'provider' => 'clients',
+        ],
         'admin-api' => [
             'driver' => 'passport',
             'provider' => 'admins',
@@ -55,6 +59,10 @@ return [
         'dentist-api' => [
             'driver' => 'passport',
             'provider' => 'dentists',
+        ],
+         'client-api' => [
+            'driver' => 'passport',
+            'provider' => 'clientts',
         ],
         'user-api' => [
             'driver' => 'passport',
@@ -91,6 +99,10 @@ return [
         'dentists' => [
             'driver' => 'eloquent',
             'model' => App\Models\Dentist::class,
+        ],
+        'clients' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Client::class,
         ],
 
         // 'users' => [

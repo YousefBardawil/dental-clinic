@@ -19,10 +19,20 @@ class RoomPolicy
      */
     public function viewAny()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Index-Room')
-        ?  $this->allow()
-        : $this->deny(' can not show index Room');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Index-Room')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-Room');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Index-Room')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-Room');
+         }else{
+           return  auth()->user()->hasPermissionTo('Index-Room')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-Room');
+         }
+
     }
 
     /**
@@ -45,10 +55,19 @@ class RoomPolicy
      */
     public function create()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Create-Room')
-        ?  $this->allow()
-        : $this->deny(' can not show create Room');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Create-Room')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-Room');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Create-Room')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-Room');
+         }else{
+           return  auth()->user()->hasPermissionTo('Create-Room')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-Room');
+         }
     }
 
     /**
@@ -60,10 +79,19 @@ class RoomPolicy
      */
     public function update()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Edit-Room')
-        ?  $this->allow()
-        : $this->deny(' can not show Edit Room');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Edit-Room')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-Room');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Edit-Room')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-Room');
+         }else{
+           return  auth()->user()->hasPermissionTo('Edit-Room')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-Room');
+         }
     }
 
     /**
@@ -75,10 +103,19 @@ class RoomPolicy
      */
     public function delete()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Delete-Room')
-        ?  $this->allow()
-        : $this->deny(' can not Delete Room');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Delete-Room')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-Room');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Delete-Room')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-Room');
+         }else{
+           return  auth()->user()->hasPermissionTo('Delete-Room')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-Room');
+         }
     }
 
     /**

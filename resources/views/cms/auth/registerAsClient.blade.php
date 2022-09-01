@@ -28,7 +28,6 @@
 <!--===============================================================================================-->
 <link rel="stylesheet" href="{{ asset('cms/plugins/toastr/toastr.min.css') }}">
 <link rel="stylesheet"   href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css"  >
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 <link rel="stylesheet" href="{{ asset('cms/plugins/fontawesome-free/css/all.min.css') }}">
 
@@ -42,48 +41,71 @@
 			<div class="wrap-login100">
 				<form class="login100-form validate-form">
 					<span class="login100-form-title p-b-43">
-						Choose Account Type
+						Register Client
 					</span>
 
-                    <div class="login100-form-social flex-c-m " >
-
-                        <div class="p-3 bg-secondary d-flex  justify-content-center " style="width: 120px; height: 105px;">
-                            <a href="{{ route('view.login' , [$admins=>'admin'] ) }}" class="text-black d-block text-decoration-none" >
-                                <i class="fa-solid fa-user display-4"></i>
-                                <div class="text-black font-weight-bold mt-1"> Admin</div>
-                            </a>
+                    <div class="input-group mb-3">
+                        <input type="name" class="form-control" id="name" name="name" placeholder="Enter Your Name">
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                          </div>
                         </div>
+                      </div>
 
-                        <div class="p-3 bg-primary d-flex  justify-content-center mx-4 " style="width: 120px; height: 105px;">
-                            <a href="{{ route('view.login' , [$dentists => 'dentist'] ) }}" class="text-black d-block text-decoration-none" >
-                                <i class="fa-solid fa-user-doctor display-4 "></i>
-                               <div class="text-black font-weight-bold mt-1"> Dentist</div>
-                            </a>
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <i class="fas fa-envelope"></i>
+                          </div>
                         </div>
+                      </div>
 
-                        <div class="p-3 bg-danger d-flex  justify-content-center mx-4 " style="width: 120px; height: 105px;">
-                            <a href="{{ route('view.login' , [$clients => 'client'] ) }}" class="text-black d-block text-decoration-none" >
-                                <i class="fa-regular fa-user display-4"></i>
-                               <div class="text-black font-weight-bold mt-1">Client</div>
-                            </a>
+
+                      <div class="input-group mb-3">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                          </div>
                         </div>
+                      </div>
+                      <div class="input-group mb-3">
+                        <select class="form-control select2" name="city_id" style="width: 100%;" id="city_id">
+                              <option >City </option>
+                               @foreach ($cities as $city )
+                               <option value="{{ $city->id }}"> {{ $city->city_name }} </option>
+                               @endforeach
+                        </select>
+                      </div>
+                      <div class="input-group mb-3">
+                        <select class="form-control select2" name="role_id" style="width: 100%;" id="role_id">
+                            <option > Role-name </option>
+                               @foreach ($roles as $role )
 
+                               <option value="{{ $role->id }}"> {{ $role->name }} </option>
+                               @endforeach
+                        </select>
+                      </div>
+
+						<div class="my-2">
+							<a href="{{ route('view.loginas') }}" >
+								Click here if you have an account
+							</a>
+						</div>
+                        <div class="container-login100-form-btn">
+                            <button   onclick="register()" type="button" class="login100-form-btn">
+                                Register
+                            </button>
+                        </div>
 					</div>
-
-                    <div class="container-login100-form-btn my-4">
-                        <a href="{{ route('view.RegisterAs') }}" class="btn btn-primary" >
-                            Register
-                        </a>
-                    </div>
-
 
 				</form>
 
-
-                <div class="login100-more" style="
-                background-image: url({{ asset('login/images/attachment_112096128.png') }});
-                ">
+                <div class="login100-more" style="background-image: url({{ asset('login/images/attachment_112096128.png') }});">
                 </div>
+
 
 			</div>
 		</div>
@@ -121,7 +143,21 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="{{ asset('cms/js/crud.js') }}"></script>
 
+<script>
+    function register(){
+      let formData = new FormData;
+     formData.append('name' ,document.getElementById('name').value );
+     formData.append('email' ,document.getElementById('email').value );
+     formData.append('password' ,document.getElementById('password').value );
+     formData.append('city_id' ,document.getElementById('city_id').value );
+     formData.append('role_id' ,document.getElementById('role_id').value );
 
+
+     store('/cms/do-register-client',formData);
+
+    }
+
+</script>
 
 </body>
 </html>

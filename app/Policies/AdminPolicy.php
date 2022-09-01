@@ -19,13 +19,23 @@ class AdminPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
+
+
     public function viewAny()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Index-Admin')
-        ?  $this->allow()
-        : $this->deny(' can not show index admin');
-        // return $admin->hasPermissionTo('Index-Admin')
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Index-Admin')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-Admin');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Index-Admin')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-Admin');
+         }else{
+           return  auth()->user()->hasPermissionTo('Index-Admin')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-Admin');
+         }
     }
 
     /**
@@ -48,10 +58,19 @@ class AdminPolicy
      */
     public function create()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Create-Admin')
-        ?  $this->allow()
-        : $this->deny(' can not show create admin');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Create-Admin')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-Admin');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Create-Admin')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-Admin');
+         }else{
+           return  auth()->user()->hasPermissionTo('Create-Admin')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-Admin');
+         }
     }
 
     /**
@@ -63,10 +82,19 @@ class AdminPolicy
      */
     public function update()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Edit-Admin')
-        ?  $this->allow()
-        : $this->deny(' can not show Edit admin');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Edit-Admin')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-Admin');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Edit-Admin')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-Admin');
+         }else{
+           return  auth()->user()->hasPermissionTo('Edit-Admin')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-Admin');
+         }
     }
 
     /**
@@ -78,10 +106,19 @@ class AdminPolicy
      */
     public function delete()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Delete-Admin')
-        ?  $this->allow()
-        : $this->deny(' can not Delete admin');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Delete-Admin')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-Admin');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Delete-Admin')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-Admin');
+         }else{
+           return  auth()->user()->hasPermissionTo('Delete-Admin')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-Admin');
+         }
     }
 
     /**

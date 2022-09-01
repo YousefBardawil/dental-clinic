@@ -18,10 +18,19 @@ class PermissionPolicy
      */
     public function viewAny()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Index-Permission')
-        ?  $this->allow()
-        : $this->deny(' can not open Index-Permission');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Index-permission')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-permission');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Index-permission')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-permission');
+         }else{
+           return  auth()->user()->hasPermissionTo('Index-permission')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-permission');
+         }
     }
 
     /**
@@ -44,10 +53,19 @@ class PermissionPolicy
      */
     public function create()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Create-Permission')
-        ?  $this->allow()
-        : $this->deny(' can not open Create-Permission');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Create-permission')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-permission');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Create-permission')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-permission');
+         }else{
+           return  auth()->user()->hasPermissionTo('Create-permission')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-permission');
+         }
     }
 
     /**
@@ -59,10 +77,19 @@ class PermissionPolicy
      */
     public function update()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Edit-Permission')
-        ?  $this->allow()
-        : $this->deny(' can not open Edit-Permission');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Edit-permission')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-permission');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Edit-permission')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-permission');
+         }else{
+           return  auth()->user()->hasPermissionTo('Edit-permission')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-permission');
+         }
     }
 
     /**
@@ -74,10 +101,19 @@ class PermissionPolicy
      */
     public function delete()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Delete-Permission')
-        ?  $this->allow()
-        : $this->deny(' can not open Delete-Permission');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Delete-permission')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-permission');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Delete-permission')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-permission');
+         }else{
+           return  auth()->user()->hasPermissionTo('Delete-permission')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-permission');
+         }
     }
 
     /**

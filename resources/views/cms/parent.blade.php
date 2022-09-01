@@ -201,12 +201,22 @@
 
             @endif
 
+            @elseif (Auth::guard('client')->id())
+            @if (auth('client')->user()->images !='')
+            <img src="{{ asset('images/client/'.auth('client')->user()->images) }}" class="brand-image img-circle elevation-3" alt="User Image">
+            @else
+            <img class="brand-image img-circle elevation-3" src="{{ asset('images/userSolid.png') }}"alt="User Image">
+            @endif
+
             @elseif (Auth::guard('dentist')->id())
             @if (auth('dentist')->user()->images !='')
             <img src="{{ asset('images/dentist/'.auth('dentist')->user()->images) }}" class="brand-image img-circle elevation-3" alt="User Image">
             @else
             <img class="brand-image img-circle elevation-3" src="{{ asset('images/userSolid.png') }}"alt="User Image">
             @endif
+
+            @else
+            <img class="brand-image img-circle elevation-3" src="{{ asset('images/userSolid.png') }}"alt="User Image">
 
             @endif
         </div>
@@ -217,7 +227,7 @@
                 @elseif (Auth::guard('dentist')->id())
                 <a href="#" class="d-block"> {{ auth('dentist')->user()->name }}</a>
                 @else
-                <a href="#" class="d-block"> users</a>
+                <a href="#" class="d-block"> {{ auth('client')->user()->name }}</a>
 
                 @endif
             </div>
@@ -266,7 +276,7 @@
           </li>
           @endcanAny
 
-          @canAny(['Index-Permission','Create-Permission'])
+          @canAny(['Index-permission','Create-permission'])
           <li class="nav-item">
             <a href="#" class="nav-link">
                 <i class="fa-solid fa-person-circle-exclamation"></i>
@@ -276,7 +286,7 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-                @can('Index-Permission')
+                @can('Index-permission')
                 <li class="nav-item">
                     <a href="{{ route('permissions.index') }}" class="nav-link">
                       <i class="fas fa-list nav-icon"></i>
@@ -285,7 +295,7 @@
                     </a>
                   </li>
                 @endcan
-                @can('Create-Permission')
+                @can('Create-permission')
                 <li class="nav-item">
                     <a href="{{ route('permissions.create') }}" class="nav-link">
                       <i class="fas fa-plus nav-icon text-light"></i>
@@ -410,7 +420,7 @@
 
           <li class="nav-header">content resources</li>
 
-          @canAny(['Index-city','Create-City'])
+          @canAny(['Index-City','Create-City'])
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="fa-solid fa-tree-city"></i>

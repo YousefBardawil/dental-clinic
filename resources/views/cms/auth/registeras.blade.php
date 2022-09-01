@@ -61,6 +61,13 @@
                             </a>
                         </div>
 
+                        <div class="p-3 bg-danger d-flex  justify-content-center mx-4 " style="width: 120px; height: 105px;">
+                            <a href="{{ route('view.Register.client') }}" class="text-black d-block text-decoration-none" >
+                                <i class="fa-regular fa-user display-4"></i>
+                               <div class="text-black font-weight-bold mt-1">Client</div>
+                            </a>
+                        </div>
+
 					</div>
 
                     <div class="container-login100-form-btn my-4">

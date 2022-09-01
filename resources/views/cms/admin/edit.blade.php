@@ -29,7 +29,13 @@
           <label for="email">Email</label>
           <input type="email" class="form-control" id="email" name="email" value="{{ $admins->email }}" placeholder="">
         </div>
-     
+
+        <div class="form-group col-md-6">
+            <label for="image">Image</label>
+                <input type="file" class="form_control" id="image" name="image" placeholder="Enter image">
+
+          </div>
+
 
       </div>
       <!-- /.card-body -->
@@ -50,6 +56,8 @@
     let formData = new FormData;
    formData.append('name' ,document.getElementById('name').value );
    formData.append('email' ,document.getElementById('email').value );
+   formData.append('image' ,document.getElementById('image').files[0]);
+
 
    storeRoute('/cms/admins_update/'+id ,formData);
 

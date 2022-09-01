@@ -17,13 +17,14 @@ class OpeningHourController extends Controller
     {
 
         $openinghours = OpeningHour::where('dentist_id', $id)->orderBy('created_at', 'desc')->paginate(5);
+        $this->authorize('viewAny', OpeningHour::class);
         return response()->view('cms.opening-hours.index', compact('openinghours','id'));
     }
 
 
     public function createopeninghours($id)
     {
-
+        $this->authorize('create', OpeningHour::class);
         return response()->view('cms.opening-hours.create', compact('id' ));
     }
     public function index()
@@ -41,7 +42,6 @@ class OpeningHourController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', OpeningHour::class);
 
     }
 

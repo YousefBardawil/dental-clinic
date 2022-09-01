@@ -19,10 +19,19 @@ class ContactPolicy
      */
     public function viewAny()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Index-ContactUs')
-        ?  $this->allow()
-        : $this->deny(' can not show Index Contact');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Index-ContactUs')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-ContactUs');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Index-ContactUs')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-ContactUs');
+         }else{
+           return  auth()->user()->hasPermissionTo('Index-ContactUs')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-ContactUs');
+         }
     }
 
     /**
@@ -45,10 +54,20 @@ class ContactPolicy
      */
     public function create()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Create-ContactUs')
-        ?  $this->allow()
-        : $this->deny(' can not show Create Contact');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Create-ContactUs')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-ContactUs');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Create-ContactUs')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-ContactUs');
+         }else{
+           return  auth()->user()->hasPermissionTo('Create-ContactUs')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-ContactUs');
+         }
+
     }
 
     /**
@@ -60,10 +79,19 @@ class ContactPolicy
      */
     public function update()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Update-ContactUs')
-        ?  $this->allow()
-        : $this->deny(' can not show Edit Contact');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Edit-ContactUs')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-ContactUs');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Edit-ContactUs')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-ContactUs');
+         }else{
+           return  auth()->user()->hasPermissionTo('Edit-ContactUs')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-ContactUs');
+         }
     }
 
     /**
@@ -75,10 +103,19 @@ class ContactPolicy
      */
     public function delete()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Delete-ContactUs')
-        ?  $this->allow()
-        : $this->deny(' can not Delete Contact');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Delete-ContactUs')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-ContactUs');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Delete-ContactUs')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-ContactUs');
+         }else{
+           return  auth()->user()->hasPermissionTo('Delete-ContactUs')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-ContactUs');
+         }
     }
 
     /**

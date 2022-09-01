@@ -18,10 +18,20 @@ class OpeningHourPolicy
      */
     public function viewAny()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Index-OpeningHour')
-        ?  $this->allow()
-        : $this->deny('can not show Index-OpeningHour');
+
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Index-OpeningHour')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-OpeningHour');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Index-OpeningHour')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-OpeningHour');
+         }else{
+           return  auth()->user()->hasPermissionTo('Index-OpeningHour')
+             ?  $this->allow()
+             : $this->deny(' can not open Index-OpeningHour');
+         }
     }
 
     /**
@@ -44,10 +54,19 @@ class OpeningHourPolicy
      */
     public function create()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Create-OpeningHour')
-        ?  $this->allow()
-        : $this->deny('can not show Create-OpeningHour');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Create-OpeningHour')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-OpeningHour');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Create-OpeningHour')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-OpeningHour');
+         }else{
+           return  auth()->user()->hasPermissionTo('Create-OpeningHour')
+             ?  $this->allow()
+             : $this->deny(' can not open Create-OpeningHour');
+         }
     }
 
     /**
@@ -59,10 +78,20 @@ class OpeningHourPolicy
      */
     public function update()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Edit-OpeningHour')
-        ?  $this->allow()
-        : $this->deny('can not show Edit-OpeningHour');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Edit-OpeningHour')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-OpeningHour');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Edit-OpeningHour')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-OpeningHour');
+         }else{
+           return  auth()->user()->hasPermissionTo('Edit-OpeningHour')
+             ?  $this->allow()
+             : $this->deny(' can not open Edit-OpeningHour');
+         }
+
     }
 
     /**
@@ -74,10 +103,19 @@ class OpeningHourPolicy
      */
     public function delete()
     {
-        $guard = auth('admin')->check() ? 'admin':'dentist';
-        return auth($guard)->check() && auth($guard)->user()->hasPermissionTo('Delete-OpeningHour')
-        ?  $this->allow()
-        : $this->deny('can not show Delete-OpeningHour');
+        if(auth('admin')->check()){
+            return auth()->user()->hasPermissionTo('Delete-OpeningHour')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-OpeningHour');
+         }elseif(auth('dentist')->check()){
+            return auth()->user()->hasPermissionTo('Delete-OpeningHour')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-OpeningHour');
+         }else{
+           return  auth()->user()->hasPermissionTo('Delete-OpeningHour')
+             ?  $this->allow()
+             : $this->deny(' can not open Delete-OpeningHour');
+         }
     }
 
     /**

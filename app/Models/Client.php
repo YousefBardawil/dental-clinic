@@ -3,11 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Passport\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
-class Client extends Model
+class Client extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory , HasRoles , HasApiTokens;
+
+    public function getImagesAttribute()
+    {
+        return $this->image;
+    }
+    
 
     public function reviews(){
         return $this->hasMany(Review::class);
@@ -38,7 +46,7 @@ class Client extends Model
     }
 
     public function medicalhistories(){
-        return $this->hasOne(Medical_history::class,'client_id');
+        return $this->hasOne(MedicalHistory::class,'client_id');
     }
 
     public static function boot() {
