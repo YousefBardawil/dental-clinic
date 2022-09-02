@@ -12,9 +12,18 @@ class ContactController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $contacts = Contact::orderBy('created_at','desc')->simplePaginate(5);
+        if ($request->get('email')) {
+            $contacts = Contact::where('email', 'like', '%' . $request->email . '%');
+            $contacts =$contacts->simplePaginate(5);
+        }
+        if ($request->get('name')) {
+            $contacts = Contact::where('name', 'like', '%' . $request->name . '%');
+            $contacts =$contacts->simplePaginate(5);
+        }
+
         $this->authorize('viewAny', Contact::class);
         return response()->view('cms.contact.index',compact('contacts'));
     }

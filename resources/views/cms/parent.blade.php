@@ -537,7 +537,30 @@
                @endcan
            </ul>
          </li>
-     @endcanAny
+         @endcanAny
+
+         @canAny(['Index-Review'])
+         <li class="nav-item">
+           <a href="#" class="nav-link">
+            <i class="fa-solid fa-calendar-check"></i>
+             <p class="mx-2">
+              Review
+               <i class="fas fa-angle-left right"></i>
+             </p>
+           </a>
+           <ul class="nav nav-treeview">
+               @can('Index-Review')
+               <li class="nav-item">
+                   <a href="{{ route('reviews.index') }}" class="nav-link">
+                     <i class="fas fa-list nav-icon"></i>
+
+                     <p>Index</p>
+                   </a>
+                 </li>
+               @endcan
+           </ul>
+         </li>
+         @endcanAny
 
 
 

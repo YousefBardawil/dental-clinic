@@ -27,7 +27,7 @@
 
         <div class="form-group">
             <div><label for="comment">comment</label></div>
-             <textarea name="comment" id="comment" cols="40" rows="5" style="resize: none;" > {{ $reviews->comment }}</textarea>
+             <textarea name="comment" id="comment" cols="40" rows="5" style="resize: none;" > </textarea>
 
            </div>
 

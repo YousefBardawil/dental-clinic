@@ -28,9 +28,15 @@ class MedicalHistoryController extends Controller
         return response()->view('cms.med-history.create', compact('id' ));
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $medicalhistories = MedicalHistory::orderBy('id','desc')->simplePaginate(5);
+        if ($request->get('search')) {
+            $medicalhistories = MedicalHistory::whereHas('client', function($query) use($request) {
+                $query->where('name', 'like', '%' . $request->search . '%');
+            })->paginate(5);
+        }
+
         $this->authorize('viewAny', MedicalHistory::class);
         return response()->view('cms.med-history.indexall',compact('medicalhistories'));
     }

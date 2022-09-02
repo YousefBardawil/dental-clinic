@@ -7,6 +7,7 @@ use App\Models\Client;
 use App\Models\Dentist;
 use App\Models\Room;
 use App\Models\Service;
+use Illuminate\Contracts\Filesystem\Cloud;
 use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
@@ -41,12 +42,20 @@ class AppointmentController extends Controller
         $dentists = Dentist::all();
         $services = Service::all();
         $rooms = Room::all();
-        // if ($request->get('client_id')) {
-        //     $appointments = Appointment::where('client_id', 'like', '%' . $request->name . '%');
-        //     $appointments =$appointments->simplePaginate(5);
-        // }
-        $this->authorize('viewAny', Appointment::class);
 
+        if ($request->get('search')) {
+            $appointments = Appointment::whereHas('client', function($query) use($request) {
+                $query->where('name', 'like', '%' . $request->search . '%');
+            })->paginate(5);
+        }
+
+        if ($request->get('searchDentist')) {
+            $appointments = Appointment::whereHas('dentist', function($query) use($request) {
+                $query->where('name', 'like', '%' . $request->searchDentist . '%');
+            })->paginate(5);
+        }
+
+        $this->authorize('viewAny', Appointment::class);
         return response()->view('cms.appointment.indexall',compact('appointments' , 'clients' ,'dentists','rooms','services'));
     }
 

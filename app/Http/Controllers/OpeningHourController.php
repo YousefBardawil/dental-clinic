@@ -27,10 +27,16 @@ class OpeningHourController extends Controller
         $this->authorize('create', OpeningHour::class);
         return response()->view('cms.opening-hours.create', compact('id' ));
     }
-    public function index()
+    public function index(Request $request)
     {
         $openinghours = OpeningHour::orderBy('id','desc')->simplePaginate(5);
         $dentists= Dentist::all();
+
+        if ($request->get('search')) {
+            $openinghours = OpeningHour::whereHas('dentist', function($query) use($request) {
+                $query->where('name', 'like', '%' . $request->search . '%');
+            })->paginate(5);
+        }
         $this->authorize('viewAny', OpeningHour::class);
         return response()->view('cms.opening-hours.indexall', compact('openinghours' , 'dentists'));
     }

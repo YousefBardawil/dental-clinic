@@ -27,10 +27,16 @@ class ReviewController extends Controller
         $this->authorize('create', Review::class);
         return response()->view('cms.review.create',compact('id'));
     }
-    public function index()
+    public function index(Request $request)
     {
-        $this->authorize('viewAny', Review::class);
+
         $reviews =Review::orderBy('id','desc')->simplePaginate(5);
+        if ($request->get('search')) {
+            $reviews = Review::whereHas('client', function($query) use($request) {
+             $query->where('name', 'like', '%' . $request->search . '%');
+            })->paginate(5);
+        }
+        $this->authorize('viewAny', Review::class);
         return response()->view('cms.review.indexall' ,compact('reviews'));
 
     }
