@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Appointment;
 use App\Models\City;
 use App\Models\Client;
+use App\Models\Dentist;
+use App\Models\Service;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -19,7 +22,7 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        $clients = Client::with('city','user')->withCount('medicalhistories','appointments','reviews')->orderBy('id','desc')->simplePaginate(5);
+        $clients = Client::with('city','user')->withCount('medicalhistories','appointments','reviews','payments')->orderBy('id','desc')->simplePaginate(5);
         if ($request->get('email')) {
             $clients = Client::where('email', 'like', '%' . $request->email . '%');
             $clients =$clients->simplePaginate(5);
@@ -125,7 +128,7 @@ class ClientController extends Controller
         $clients =Client::findOrFail($id);
         $this->authorize('update', Client::class);
         $cities=City::all();
-        return response()->view('cms.client.edit',compact('cities','clients','roles'));
+        return response()->view('cms.client.edit',compact('cities','clients'));
     }
 
     /**

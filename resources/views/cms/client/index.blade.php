@@ -65,6 +65,7 @@
                 <th>Gender</th>
                 <th>add medical-file</th>
                 <th>appointments</th>
+                <th>payment</th>
                 <th>review</th>
                 <th>Image</th>
                 <th>settings</th>
@@ -89,6 +90,12 @@
                         class="btn btn-info">({{$client->appointments_count}})
                         appointment/s</a>
                      </td>
+
+                     <td><a href="{{route('index.payment',['id'=>$client->id ])}}"
+                        class="btn btn-info">({{$client->payments_count}})
+                        payment/s</a>
+                     </td>
+
                      <td><a href="{{route('index.reviews',['id'=>$client->id])}}"
                         class="btn btn-info">({{$client->reviews_count}})
                         review/s</a>

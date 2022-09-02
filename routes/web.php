@@ -9,6 +9,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DentistController;
 use App\Http\Controllers\MedicalHistoryController;
 use App\Http\Controllers\OpeningHourController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RoleController;
@@ -76,6 +77,12 @@ Route::prefix('cms/')->middleware('auth:admin,dentist,client')->group(function()
     Route::post('admins_update/{id}' , [AdminController::class , 'update'] );
     Route::resource('dentists', DentistController::class);
     Route::post('dentists_update/{id}' , [DentistController::class , 'update'] );
+
+    Route::resource('payments', PaymentController::class);
+    Route::post('payments_update/{id}' , [PaymentController::class , 'update'] );
+    Route::get('/create/payment/{id}', [PaymentController::class, 'createpayments'])->name('create.payment');
+    Route::get('/index/payment/{id}', [PaymentController::class, 'indexpayments'])->name('index.payment');
+
     Route::resource('medical-histories', MedicalHistoryController::class);
     Route::post('medical-histories_update/{id}' , [MedicalHistoryController::class , 'update'] );
     Route::get('/create/med-history/{id}', [MedicalHistoryController::class, 'createmedicalhistories'])->name('create.med.history');

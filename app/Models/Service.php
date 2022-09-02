@@ -17,6 +17,10 @@ class Service extends Model
         return $this->belongsToMany(Client::class,'client_services','client_id','service_id','id','id');
     }
 
+    public function payments(){
+        return $this->hasMany(Payment::class,'service_id','id');
+    }
+
     public function dentists(){
         return $this->belongsToMany(Dentist::class,'dentist_services','dentist_id','service_id','id','id');
     }

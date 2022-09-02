@@ -49,6 +49,10 @@ class Client extends Authenticatable
         return $this->hasOne(MedicalHistory::class,'client_id');
     }
 
+    public function payments(){
+        return $this->hasMany(Payment::class,'client_id','id');
+    }
+
     public static function boot() {
         parent::boot();
 

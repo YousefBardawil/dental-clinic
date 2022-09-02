@@ -31,6 +31,10 @@ class Dentist extends Authenticatable
         return $this->morphOne(User::class ,'actor','actor_type','actor_id','id');
     }
 
+    public function payments(){
+        return $this->hasMany(Payment::class,'dentist_id','id');
+    }
+
     public function city(){
         return $this->belongsTo(City::class);
     }
