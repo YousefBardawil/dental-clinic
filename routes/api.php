@@ -15,6 +15,7 @@ use App\Http\Controllers\API\RoleController;
 use App\Http\Controllers\API\RolePermissionController;
 use App\Http\Controllers\API\RoomController;
 use App\Http\Controllers\API\ServiceController;
+use App\Http\Controllers\SettingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -53,25 +54,20 @@ Route::prefix('auth')->group(function(){
     Route::post('register/dentist',[AuthUserController::class,'registerDentist']);
     Route::post('register/client',[AuthUserController::class,'registerClient']);
 
-
     Route::post('login/admin' , [AuthUserController::class , 'loginAdmin']);
     Route::post('login/dentist' , [AuthUserController::class , 'loginDentist']);
     Route::post('login/client' , [AuthUserController::class , 'loginClient']);
+
+    Route::post('forgetPassword/admin' , [AuthUserController::class , 'forgetPasswordAdmin']);
     Route::post('resetPassword/admin' , [AuthUserController::class , 'resetPasswordAdmin']);
 
 
-
 });
 
-Route::prefix('auth')->middleware('auth:admin-api')->group(function(){
-    Route::get('admin/logout' , [AuthUserController::class , 'logoutAdmin']);
+Route::prefix('auth')->middleware('auth:admin-api,dentist-api,client-api')->group(function(){
+    Route::get('logout' , [AuthUserController::class , 'logout']);
 });
-Route::prefix('auth')->middleware('auth:client-api')->group(function(){
-    Route::get('client/logout' , [AuthUserController::class , 'logoutClient']);
-});
-Route::prefix('auth')->middleware('auth:dentist-api')->group(function(){
-    Route::get('dentist/logout' , [AuthUserController::class , 'logoutDentist']);
-});
+
 
 
 

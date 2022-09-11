@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Client;
 use App\Models\Dentist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
@@ -172,9 +173,16 @@ class AdminController extends Controller
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Admin $admin)
     {
         $this->authorize('delete', Admin::class);
-        $admins = Admin::destroy($id);
+
+
+        if($admin->id == Auth::id()){
+            return redirect()->route('admins.index')->withErrors(trans('can not delete yourself'));
+        }else{
+            $admins = Admin::destroy($admin);
+            return response()->json(['icon'=> 'success' , 'title' => 'admin deleted successfuly'],200);
+        }
     }
 }

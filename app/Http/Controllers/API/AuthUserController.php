@@ -9,7 +9,9 @@ use App\Models\Dentist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class AuthUserController extends Controller
 {
@@ -233,38 +235,20 @@ class AuthUserController extends Controller
 
 
 
-    public function logoutAdmin(Request $request){
+    public function logout(){
 
-
-        $token = $request->user('admin-api')->token();
-        $revoked = $token->revoke();
-
-        return response()->json([
-            'status' => $revoked ,
-            'message' => $revoked ? 'تم تسجيل الخروج بنجاح' : ' فشلت عملية تسجيل الخروج'
-        ]);
-
-    }
-
-    public function logoutDentist(Request $request){
-
-        $token = $request->user('dentist-api')->token();
-        $revoked = $token->revoke();
-        return response()->json([
-            'status' => $revoked ,
-            'message' => $revoked ? 'تم تسجيل الخروج بنجاح' : ' فشلت عملية تسجيل الخروج'
-        ]);
-
-    }
-
-    public function logoutClient(Request $request){
-
-        $token = $request->user('client-api')->token();
-        $revoked = $token->revoke();
-        return response()->json([
-            'status' => $revoked ,
-            'message' => $revoked ? 'تم تسجيل الخروج بنجاح' : ' فشلت عملية تسجيل الخروج'
-        ]);
+        if($user = Auth::user('admin-api')->token()){
+            $user->revoke();
+            return 'logged out';
+        }elseif($user = Auth::user('dentist-api')->token()){
+            $user->revoke();
+            return 'logged out';
+        }elseif($user = Auth::user('client-api')->token()){
+            $user->revoke();
+            return 'logged out';
+        }else{
+            return 'logged out failed';
+        }
 
     }
 
@@ -297,8 +281,28 @@ class AuthUserController extends Controller
 
 
     }
-    public function forgetPassword(Request $request){
+    public function forgetPasswordAdmin(Request $request){
+        $validator = Validator($request->all() ,[
+            'email' => 'required|email|exists:admins,email' ,
+        ]);
 
+        if (! $validator->fails()){
+            $admins = Admin::where('email' , '=' , $request->get('email'))->first();
+            $authCode = random_int(1000 , 9999);
+            $admins->authCode = Hash::make($authCode);
+
+            $isSaved = $admins->save();
+            return response()->json([
+                'status' => $isSaved ,
+                'message' => $isSaved ? 'تم ارسال الكود الى الايميل الخاص بك' : 'فشل ارسال الكود تحقق من صحة الايميل',
+                'code' => $authCode
+            ]);
+        }
+        else{
+            return response()->json([
+                'message' => $validator->getMessageBag()->first()
+            ] , 400);
+        }
 
     }
 }

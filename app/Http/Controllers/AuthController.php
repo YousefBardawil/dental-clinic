@@ -98,20 +98,20 @@ class AuthController extends Controller
 
        }
 
-            public function registerAs(){
 
+     public function registerAs(){
                 return response()->view('cms.auth.registeras');
-            }
+        }
 
-            public function showregisterAdmin(){
+     public function showregisterAdmin(){
 
                 $roles = Role::where('guard_name' ,'admin')->get();
                 return response()->view('cms.auth.registerAsAdmin',compact('roles'));
-            }
+    }
 
 
 
-            public function registerAdmin(Request $request){
+     public function registerAdmin(Request $request){
                 $validator = Validator($request->all(),[
 
                 ]);
@@ -141,13 +141,13 @@ class AuthController extends Controller
                 }
             }
 
-            public function showRegisterDentist(){
+    public function showRegisterDentist(){
                 $cities =City::all();
                 $roles = Role::where('guard_name' ,'dentist')->get();
                 return response()->view('cms.auth.registerAsDentist',compact('cities','roles'));
-            }
+      }
 
-            public function registerDentist(Request $request){
+    public function registerDentist(Request $request){
                 $validator = Validator($request->all(),[
                     'name' => 'required|String|min:3|max:20',
 
@@ -184,16 +184,16 @@ class AuthController extends Controller
                    }
             }
 
-            public function showregisterClient(){
+    public function showregisterClient(){
 
                 $roles = Role::where('guard_name' ,'client')->get();
                 $cities =City::all();
 
                 return response()->view('cms.auth.registerAsClient',compact('roles','cities'));
-            }
+     }
 
 
-            public function registerClient(Request $request){
+    public function registerClient(Request $request){
                 $validator = Validator($request->all(),[
                     'name' => 'required|String|min:3|max:20',
 

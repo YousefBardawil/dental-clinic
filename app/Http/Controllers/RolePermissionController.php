@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Guard as PermissionGuard;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -17,22 +19,27 @@ class RolePermissionController extends Controller
      */
     public function index($roleId)
     {
-        $permissions = Permission::orderBy('id','asc')->get();
-        $rolepermissions = Role::findOrFail($roleId)->permissions;
+        $rolepermissions = Role::findOrFail($roleId)->guard_name;
+        $permissions = Permission::where('guard_name', $rolepermissions)->get();
 
-        if(count($rolepermissions) > 0){
-            foreach($permissions as $permission){
-                $permission->setAttribute('active',false);
-                foreach($rolepermissions as $rolepermission){
-                    if($rolepermission->id == $permission->id){
-                        $permission->active = true;
+        if($permissions){
+            $rolepermissions = Role::findOrFail($roleId)->permissions;
+            if(count($rolepermissions) > 0){
+                foreach($permissions as $permission){
+                    $permission->setAttribute('active',false);
+                    foreach($rolepermissions as $rolepermission){
+                        if($rolepermission->id == $permission->id){
+                            $permission->active = true;
+                        }
                     }
                 }
             }
         }
 
+
         return response()->view('cms.spatie.role.rolepermission',['roleId' => $roleId, 'permissions'=>$permissions]);
     }
+
 
 
     /**

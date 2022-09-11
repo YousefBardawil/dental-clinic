@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 
 class SettingController extends Controller
 {
@@ -13,7 +14,7 @@ class SettingController extends Controller
     }
 
     public function updatepassword(Request $request){
-      
+
         $validator = Validator($request->all(),[
             'password' => 'required|string|min:6|max:20',
             'new_password' => 'required|string|min:6|max:20',
@@ -47,4 +48,6 @@ class SettingController extends Controller
             }
 
     }
+
+
 }

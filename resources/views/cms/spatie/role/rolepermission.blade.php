@@ -37,11 +37,11 @@
 
                   @foreach ( $permissions as $permission )
 
-                    @if ($permission->guard_name === 'admin' )
                     <tr>
                     <td>{{ $permission->id }}</td>
                     <td>{{ $permission->name }}</td>
                     <td>{{ $permission->guard_name }}</td>
+                   
                     <td>
                      <div class="icheck-primary d-inline">
                         <input type="checkbox" id="permission_{{ $permission->id }}"
@@ -52,7 +52,7 @@
                     </tr>
 
 
-                    @endif
+
 
 
 

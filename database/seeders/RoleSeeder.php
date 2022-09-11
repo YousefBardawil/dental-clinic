@@ -20,6 +20,11 @@ class RoleSeeder extends Seeder
          Permission::create(['name' => 'Edit-Role', 'guard_name' => 'client', 'created_at' => now(), 'updated_at' => now()]);
          Permission::create(['name' => 'Delete-Role', 'guard_name' => 'client', 'created_at' => now(), 'updated_at' => now()]);
 
+         Permission::create(['name' => 'Create-Payment', 'guard_name' => 'client', 'created_at' => now(), 'updated_at' => now()]);
+         Permission::create(['name' => 'Index-Payment', 'guard_name' => 'client', 'created_at' => now(), 'updated_at' => now()]);
+         Permission::create(['name' => 'Edit-Payment', 'guard_name' => 'client', 'created_at' => now(), 'updated_at' => now()]);
+         Permission::create(['name' => 'Delete-Payment', 'guard_name' => 'client', 'created_at' => now(), 'updated_at' => now()]);
+
          Permission::create(['name' => 'Create-Admin', 'guard_name' => 'client', 'created_at' => now(), 'updated_at' => now()]);
          Permission::create(['name' => 'Index-Admin', 'guard_name' => 'client', 'created_at' => now(), 'updated_at' => now()]);
          Permission::create(['name' => 'Edit-Admin', 'guard_name' => 'client', 'created_at' => now(), 'updated_at' => now()]);
@@ -88,6 +93,11 @@ class RoleSeeder extends Seeder
          Permission::create(['name' => 'Edit-Role', 'guard_name' => 'dentist', 'created_at' => now(), 'updated_at' => now()]);
          Permission::create(['name' => 'Delete-Role', 'guard_name' => 'dentist', 'created_at' => now(), 'updated_at' => now()]);
 
+         Permission::create(['name' => 'Create-Payment', 'guard_name' => 'dentist', 'created_at' => now(), 'updated_at' => now()]);
+         Permission::create(['name' => 'Index-Payment', 'guard_name' => 'dentist', 'created_at' => now(), 'updated_at' => now()]);
+         Permission::create(['name' => 'Edit-Payment', 'guard_name' => 'dentist', 'created_at' => now(), 'updated_at' => now()]);
+         Permission::create(['name' => 'Delete-Payment', 'guard_name' => 'dentist', 'created_at' => now(), 'updated_at' => now()]);
+
          Permission::create(['name' => 'Create-Admin', 'guard_name' => 'dentist', 'created_at' => now(), 'updated_at' => now()]);
          Permission::create(['name' => 'Index-Admin', 'guard_name' => 'dentist', 'created_at' => now(), 'updated_at' => now()]);
          Permission::create(['name' => 'Edit-Admin', 'guard_name' => 'dentist', 'created_at' => now(), 'updated_at' => now()]);
@@ -155,6 +165,11 @@ class RoleSeeder extends Seeder
          Permission::create(['name' => 'Index-Role', 'guard_name' => 'admin', 'created_at' => now(), 'updated_at' => now()]);
          Permission::create(['name' => 'Edit-Role', 'guard_name' => 'admin', 'created_at' => now(), 'updated_at' => now()]);
          Permission::create(['name' => 'Delete-Role', 'guard_name' => 'admin', 'created_at' => now(), 'updated_at' => now()]);
+
+         Permission::create(['name' => 'Create-Payment', 'guard_name' => 'admin', 'created_at' => now(), 'updated_at' => now()]);
+         Permission::create(['name' => 'Index-Payment', 'guard_name' => 'admin', 'created_at' => now(), 'updated_at' => now()]);
+         Permission::create(['name' => 'Edit-Payment', 'guard_name' => 'admin', 'created_at' => now(), 'updated_at' => now()]);
+         Permission::create(['name' => 'Delete-Payment', 'guard_name' => 'admin', 'created_at' => now(), 'updated_at' => now()]);
 
          Permission::create(['name' => 'Create-Admin', 'guard_name' => 'admin', 'created_at' => now(), 'updated_at' => now()]);
          Permission::create(['name' => 'Index-Admin', 'guard_name' => 'admin', 'created_at' => now(), 'updated_at' => now()]);

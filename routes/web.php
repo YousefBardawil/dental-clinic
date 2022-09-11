@@ -7,6 +7,7 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DentistController;
+use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\MedicalHistoryController;
 use App\Http\Controllers\OpeningHourController;
 use App\Http\Controllers\PaymentController;
@@ -19,6 +20,8 @@ use App\Http\Controllers\RolePermissionDController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SettingController;
+use App\Mail\WelcomeMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +39,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/email', function () {
+    Mail::to('yousefalbardawil6@gmail.com')->send(new WelcomeMail());
+    return new WelcomeMail();
+});
 
 Route::get('cms/registeras',[AuthController::class, 'registerAs'])->name('view.RegisterAs');
 Route::get('cms/admin/register',[AuthController::class, 'showRegisterAdmin'])->name('view.Register.admin');
@@ -44,8 +51,6 @@ Route::get('cms/dentist/register',[AuthController::class, 'showRegisterDentist']
 Route::post('cms/do-register-dentist',[AuthController::class, 'registerDentist']);
 Route::get('cms/client/register',[AuthController::class, 'showRegisterClient'])->name('view.Register.client');
 Route::post('cms/do-register-client',[AuthController::class, 'registerClient']);
-
-
 
 Route::prefix('cms/')->middleware('guest:admin,dentist,client')->group(function(){
     Route::get('login',[AuthController::class,'loginAs'])->name('view.loginas');
@@ -111,8 +116,7 @@ Route::prefix('cms/')->middleware('auth:admin,dentist,client')->group(function()
     Route::resource('permissions',PermissionController::class);
     Route::post('permissions_update/{id}' , [PermissionController::class , 'update'] );
     Route::resource('role.permissions',RolePermissionController::class);
-    Route::resource('role.permission', RolePermissionDController::class);
-    Route::resource('role.permissionC', RolePermissionClientController::class);
+   
 
 
 });

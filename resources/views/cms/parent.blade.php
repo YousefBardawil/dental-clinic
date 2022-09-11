@@ -50,7 +50,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="{{ route('dashborad') }}" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -541,7 +541,7 @@
          @canAny(['Index-Payment'])
          <li class="nav-item">
             <a href="#" class="nav-link">
-             <i class="fa-solid fa-calendar-check"></i>
+                <i class="fa-solid fa-money-bill-1-wave"></i>
               <p class="mx-2">
                Payment
                 <i class="fas fa-angle-left right"></i>
@@ -564,7 +564,7 @@
          @canAny(['Index-Review'])
          <li class="nav-item">
            <a href="#" class="nav-link">
-            <i class="fa-solid fa-calendar-check"></i>
+            <i class="fa-solid fa-comment"></i>
              <p class="mx-2">
               Review
                <i class="fas fa-angle-left right"></i>
@@ -709,7 +709,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('dashborad') }}">Home</a></li>
               <li class="breadcrumb-item active">@yield('sub-tittle')</li>
             </ol>
           </div><!-- /.col -->
