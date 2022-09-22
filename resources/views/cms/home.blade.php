@@ -6,6 +6,12 @@
 
 @section('styles')
 
+@if (App::getLocale() == 'ar')
+
+@else
+
+@endif
+
 @endsection
 
 @section('content')
@@ -24,13 +30,13 @@
                 <div class="inner">
                     <h3>{{$count}}</h3>
 
-                    <h3>Admin number</h3>
+                    <h3>{{ trans('main-trans.Admin') }}</h3>
                 </div>
                 <div class="icon">
 
                     <i class="ion ion-bag"></i>
                 </div>
-                <a href="{{route('admins.index')}}" class="small-box-footer"> read more <i class="fa fa-arrow-circle-left"></i></a>
+                <a href="{{route('admins.index')}}" class="small-box-footer">{{ trans('main-trans.read more') }}<i class="fa fa-arrow-circle-left"></i></a>
             </div>
         </div>
         <!-- ./col -->
@@ -45,12 +51,12 @@
                 <div class="inner">
                     <h3>{{$serCount}}</h3>
 
-                    <h3>Client Number</h3>
+                    <h3>{{ trans('main-trans.Client') }}</h3>
                 </div>
                 <div class="icon">
                     <i class="ion ion-bag"></i>
                 </div>
-                <a href="{{route('clients.index')}}" class="small-box-footer"> read more <i class="fa fa-arrow-circle-left"></i></a>
+                <a href="{{route('clients.index')}}" class="small-box-footer"> {{ trans('main-trans.read more') }} <i class="fa fa-arrow-circle-left"></i></a>
             </div>
         </div>
         <!-- ./col -->
@@ -65,12 +71,12 @@
                 <div class="inner">
                     <h3>{{$sparCount}}</h3>
 
-                    <h3>Dentist number</h3>
+                    <h3>{{ trans('main-trans.Dentist') }}</h3>
                 </div>
                 <div class="icon">
                     <i class="ion ion-bag"></i>
                 </div>
-                <a href="{{route('dentists.index')}}" class="small-box-footer"> read more <i class="fa fa-arrow-circle-left"></i></a>
+                <a href="{{route('dentists.index')}}" class="small-box-footer"> {{ trans('main-trans.read more') }} <i class="fa fa-arrow-circle-left"></i></a>
             </div>
         </div>
         <!-- ./col -->
@@ -86,12 +92,12 @@
                 <div class="inner">
                     <h3>{{$count}}</h3>
 
-                    <h3>Cities</h3>
+                    <h3>{{ trans('main-trans.City') }}</h3>
                 </div>
                 <div class="icon">
                     <i class="ion ion-bag"></i>
                 </div>
-                <a href="{{route('cities.index')}}" class="small-box-footer"> Read more <i class="fa fa-arrow-circle-left"></i></a>
+                <a href="{{route('cities.index')}}" class="small-box-footer">{{ trans('main-trans.read more') }} <i class="fa fa-arrow-circle-left"></i></a>
             </div>
         </div>
 
@@ -107,12 +113,12 @@
                 <div class="inner">
                     <h3>{{$count}}</h3>
 
-                    <h3>Rooms</h3>
+                    <h3>{{ trans('main-trans.Room') }}</h3>
                 </div>
                 <div class="icon">
                     <i class="ion ion-bag"></i>
                 </div>
-                <a href="{{route('rooms.index')}}" class="small-box-footer"> read more<i class="fa fa-arrow-circle-left"></i></a>
+                <a href="{{route('rooms.index')}}" class="small-box-footer"> {{ trans('main-trans.read more') }}<i class="fa fa-arrow-circle-left"></i></a>
             </div>
         </div>
 
@@ -127,12 +133,12 @@
                 <div class="inner">
                     <h3>{{$count}}</h3>
 
-                    <h3>Services</h3>
+                    <h3>{{ trans('main-trans.Service') }}</h3>
                 </div>
                 <div class="icon">
                     <i class="ion ion-bag"></i>
                 </div>
-                <a href="{{route('services.index')}}" class="small-box-footer"> read more <i class="fa fa-arrow-circle-left"></i></a>
+                <a href="{{route('services.index')}}" class="small-box-footer"> {{ trans('main-trans.read more') }}<i class="fa fa-arrow-circle-left"></i></a>
             </div>
         </div>
 

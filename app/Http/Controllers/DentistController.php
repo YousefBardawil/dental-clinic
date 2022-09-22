@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendMail;
+use App\Jobs\StatusDentist;
+use App\Mail\sendMailUsers;
 use App\Models\City;
+use App\Models\Client;
 use App\Models\Dentist;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Models\Role;
 
 class DentistController extends Controller
@@ -30,6 +35,22 @@ class DentistController extends Controller
         }
         $this->authorize('viewAny', Dentist::class);
         return response()->view('cms.dentist.index',compact('dentists'));
+    }
+
+    public function queue(){
+      $dentists_ids = Dentist::where('status',1)->pluck('id');
+       StatusDentist::dispatch($dentists_ids)->delay(now()->second(40));
+
+        return 'جاري العمل على طلبك';
+    }
+
+    public function sendMail(){
+        $data = Dentist::select('email')->pluck('email');
+         SendMail::dispatch($data)->delay(now()->second(50));
+        return 'جاري العمل على طلبك';
+
+
+
     }
 
     /**

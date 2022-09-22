@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Dentist;
 use Illuminate\Database\Seeder;
 
 class DentistSeeder extends Seeder
@@ -13,6 +14,6 @@ class DentistSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Dentist::factory(20)->create();
     }
 }

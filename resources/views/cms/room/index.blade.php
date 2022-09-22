@@ -35,8 +35,11 @@
                  @can('Create-Room')
                  <a href="{{ route('rooms.create') }}" type="button"  class="btn btn-success">Create Room</a>
                  @endcan
-
+                 <a href="{{ route('download.pdf') }}" type="button" class="btn btn-info">Download pdf</a>
                  </div>
+
+
+
 
              </div>
 

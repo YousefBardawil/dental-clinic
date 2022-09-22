@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\WelcomeUser;
 use App\Models\Admin;
 use App\Models\City;
 use App\Models\Client;
@@ -126,6 +127,7 @@ class AuthController extends Controller
                     $admins->password = Hash::make($request->get('password')) ;
                     $isSaved = $admins->save();
 
+
                     if($isSaved){
 
                         return response()->json(['icon'=>'success' , 'title' => 'Register successfully' ] , 200);
@@ -160,15 +162,19 @@ class AuthController extends Controller
                        $dentists->password= Hash::make($request->get('password')) ;
                        $isSaved = $dentists->save();
 
+
                        if($isSaved){
 
                         $users= new User();
                         $roles = Role::findOrFail($request->get('role_id'));
                         $dentists->assignRole($roles->name);
                         $users->city_id = $request->get('city_id');
+                        $users->mobile = $request->get('mobile');
                         $users->actor()->associate($dentists);
-
                         $isSaved = $users->save();
+
+                        event(new WelcomeUser($dentists));
+
                          return response()->json(['icon'=>'success' , 'title' => $isSaved ? 'created succesfully' : 'created failed' ] , $isSaved ? 200 : 400);
                        }
                        else {

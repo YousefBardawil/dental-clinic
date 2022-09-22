@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\City;
+use App\Models\Client;
+use App\Models\Dentist;
 use App\Models\Room;
+use App\Notifications\create_City;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class CityController extends Controller
 {
@@ -54,6 +59,15 @@ class CityController extends Controller
                $cities->city_name = $request->get('city_name');
                $cities->code = $request->get('code');
                $isSaved = $cities->save();
+
+               $clients = Client::where('id','!=',auth()->guard()->user()->id)->get();
+               $admins = Admin::where('id','!=',auth()->guard()->user()->id)->get();
+               $dentists = Dentist::where('id','!=',auth()->guard()->user()->id)->get();
+               $city_create = auth()->guard()->user()->name;
+                Notification::send($admins , new create_City($cities->id , $cities->city_name , $city_create ));
+                Notification::send($dentists , new create_City($cities->id , $cities->city_name , $city_create ));
+                Notification::send($clients , new create_City($cities->id , $cities->city_name , $city_create ));
+
 
                if($isSaved){
 

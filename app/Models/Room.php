@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Room extends Model
 {
     use HasFactory;
+
+    protected $table = 'rooms';
+
+    protected $fillable = ['room_name'];
+
     public function dentists(){
         return $this->belongsToMany(Dentist::class, 'dentist_rooms','dentist_id','room_id','id','id');
     }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -50,10 +50,10 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{ route('dashborad') }}" class="nav-link">Home</a>
+        <a href="{{ route('dashborad.index') }}" class="nav-link">{{ trans('main-trans.Home') }}</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
+        <a href="#" class="nav-link">{{ trans('main-trans.Contact Us') }}</a>
       </li>
     </ul>
 
@@ -140,30 +140,25 @@
         </div>
       </li>
       <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown dropdown-notification">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
+          <span class="badge badge-warning navbar-badge" data-count="">({{auth()->user()->unreadNotifications->count()}})</span>
         </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+        <div class="dropdown-menu dropdown-menu-lg scrollable-container dropdown-menu-right">
+            <a href="{{ route('mark.as.read') }}">Mark all as read</a>
+            @foreach (Auth::user()->unreadNotifications as $notification)
+            <a href="#" class="dropdown-item">
+               <div>
+                <p class="text-danger">{{ $notification->where('notifiable_id', auth()->guard()->user()->id)->get('data') }}</p>
+                <a class="d-block mx-3" href="{{ route('read.notifaction')}}"> read more</a>
+               </div>
+
+              </a>
+            @endforeach
+
+
+
         </div>
       </li>
       <li class="nav-item">
@@ -171,12 +166,32 @@
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li>
+
+
       <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
           <i class="fas fa-th-large"></i>
         </a>
       </li>
     </ul>
+
+
+
+
+
+    <div >
+        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+        <li>
+            <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                {{ $properties['native'] }}
+            </a>
+        </li>
+    @endforeach
+    </div>
+
+
+
+
   </nav>
   <!-- /.navbar -->
 
@@ -185,7 +200,7 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="{{ asset('cms/dist/img/logo2.jpg') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Dental Clinic</span>
+      <span class="brand-text font-weight-light">{{ trans('main-trans.Dental Clinic') }}</span>
     </a>
 
      <!-- Sidebar -->
@@ -243,12 +258,12 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
           @canAny(['Index-Role','Create-Role'])
-          <li class="nav-header">Role and Permission</li>
+          <li class="nav-header">{{ trans('main-trans.Role and Permission') }}</li>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="fa-solid fa-hand-sparkles"></i>
               <p>
-                Role
+                {{ trans('main-trans.Role') }}
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -257,7 +272,7 @@
               <li class="nav-item">
                 <a href="{{ route('roles.index') }}" class="nav-link">
                   <i class="fas fa-list nav-icon"></i>
-                  <p>Index</p>
+                  <p>{{ trans('main-trans.Index') }}</p>
                 </a>
               </li>
               @endcan
@@ -266,7 +281,7 @@
               <li class="nav-item">
                 <a href="{{ route('roles.create') }}" class="nav-link">
                   <i class="fas fa-plus nav-icon text-light"></i>
-                  <p>Create</p>
+                  <p>{{ trans('main-trans.Create') }}</p>
                 </a>
               </li>
               @endcan
@@ -281,7 +296,7 @@
             <a href="#" class="nav-link">
                 <i class="fa-solid fa-person-circle-exclamation"></i>
                <p>
-                Permission
+                {{ trans('main-trans.Permission') }}
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -291,7 +306,7 @@
                     <a href="{{ route('permissions.index') }}" class="nav-link">
                       <i class="fas fa-list nav-icon"></i>
 
-                      <p>Index</p>
+                      <p>{{ trans('main-trans.Index') }}</p>
                     </a>
                   </li>
                 @endcan
@@ -299,7 +314,7 @@
                 <li class="nav-item">
                     <a href="{{ route('permissions.create') }}" class="nav-link">
                       <i class="fas fa-plus nav-icon text-light"></i>
-                      <p>Create</p>
+                      <p>{{ trans('main-trans.Create') }}</p>
                     </a>
                   </li>
                 @endcan
@@ -316,7 +331,7 @@
 
                 <i class="fa-solid fa-user-tie"></i>
                  <p class="mx-2">
-                Admin
+                    {{ trans('main-trans.Admin') }}
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -326,7 +341,7 @@
                 <a href="{{ route('admins.index') }}" class="nav-link">
                   <i class="fas fa-list nav-icon"></i>
 
-                  <p>Index</p>
+                  <p>{{ trans('main-trans.Index') }}</p>
                 </a>
               </li>
 
@@ -336,7 +351,7 @@
               <li class="nav-item">
              <a href="{{ route('admins.create') }}" class="nav-link">
              <i class="fas fa-plus nav-icon text-light"></i>
-             <p>Create</p>
+             <p>{{ trans('main-trans.Create') }}</p>
              </a>
             </li>
 
@@ -353,7 +368,7 @@
             <a href="#" class="nav-link">
                 <i class="fa-solid fa-user"></i>
                  <p class="mx-2">
-                Client
+                   {{ trans('main-trans.Client') }}
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -363,7 +378,7 @@
                     <a href="{{ route('clients.index') }}" class="nav-link">
                       <i class="fas fa-list nav-icon"></i>
 
-                      <p>Index</p>
+                      <p>{{ trans('main-trans.Index') }}</p>
                     </a>
                   </li>
                 @endcan
@@ -372,7 +387,7 @@
                 <li class="nav-item">
                     <a href="{{ route('clients.create') }}" class="nav-link">
                       <i class="fas fa-plus nav-icon text-light"></i>
-                      <p>Create</p>
+                      <p>{{ trans('main-trans.Create') }}</p>
                     </a>
                   </li>
                 @endcan
@@ -388,7 +403,7 @@
             <a href="#" class="nav-link">
                 <i class="fa-solid fa-user-doctor"></i>
               <p class="mx-2">
-                Dentist
+                {{ trans('main-trans.Dentist') }}
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -398,7 +413,7 @@
                     <a href="{{ route('dentists.index') }}" class="nav-link">
                       <i class="fas fa-list nav-icon"></i>
 
-                      <p>Index</p>
+                      <p>{{ trans('main-trans.Index') }}</p>
                     </a>
                   </li>
 
@@ -408,7 +423,7 @@
                 <li class="nav-item">
                     <a href="{{ route('dentists.create') }}" class="nav-link">
                       <i class="fas fa-plus nav-icon text-light"></i>
-                      <p>Create</p>
+                      <p>{{ trans('main-trans.Create') }}</p>
                     </a>
                   </li>
                 @endcan
@@ -418,14 +433,14 @@
 
           @endcanAny
 
-          <li class="nav-header">content resources</li>
+          <li class="nav-header">{{ trans('main-trans.content resources') }}</li>
 
           @canAny(['Index-City','Create-City'])
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="fa-solid fa-tree-city"></i>
               <p class="mx-2">
-                City
+                {{ trans('main-trans.City') }}
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -435,7 +450,7 @@
                     <a href="{{ route('cities.index') }}" class="nav-link">
                       <i class="fas fa-list nav-icon"></i>
 
-                      <p>Index</p>
+                      <p>{{ trans('main-trans.Index') }}</p>
                     </a>
                   </li>
                 @endcan
@@ -444,7 +459,7 @@
                 <li class="nav-item">
                     <a href="{{ route('cities.create') }}" class="nav-link">
                       <i class="fas fa-plus nav-icon text-light"></i>
-                      <p>Create</p>
+                      <p>{{ trans('main-trans.Create') }}</p>
                     </a>
                   </li>
                 @endcan
@@ -457,7 +472,7 @@
             <a href="#" class="nav-link">
                 <i class="fa-solid fa-person-shelter"></i>
               <p class="mx-2">
-                Room
+                {{ trans('main-trans.Room') }}
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -467,7 +482,7 @@
                     <a href="{{ route('rooms.index') }}" class="nav-link">
                       <i class="fas fa-list nav-icon"></i>
 
-                      <p>Index</p>
+                      <p>{{ trans('main-trans.Index') }}</p>
                     </a>
                   </li>
                 @endcan
@@ -476,7 +491,7 @@
                 <li class="nav-item">
                     <a href="{{ route('rooms.create') }}" class="nav-link">
                       <i class="fas fa-plus nav-icon text-light"></i>
-                      <p>Create</p>
+                      <p>{{ trans('main-trans.Create') }}</p>
                     </a>
                   </li>
                 @endcan
@@ -490,7 +505,7 @@
             <a href="#" class="nav-link">
                 <i class="fa-brands fa-servicestack"></i>
               <p class="mx-2">
-                Service
+                  {{ trans('main-trans.Service') }}
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -500,7 +515,7 @@
                     <a href="{{ route('services.index') }}" class="nav-link">
                       <i class="fas fa-list nav-icon"></i>
 
-                      <p>Index</p>
+                      <p>{{ trans('main-trans.Index') }}</p>
                     </a>
                   </li>
                 @endcan
@@ -508,7 +523,7 @@
                 <li class="nav-item">
                     <a href="{{ route('services.create') }}" class="nav-link">
                       <i class="fas fa-plus nav-icon text-light"></i>
-                      <p>Create</p>
+                      <p>{{ trans('main-trans.Create') }}</p>
                     </a>
                   </li>
                 @endcan
@@ -521,7 +536,7 @@
            <a href="#" class="nav-link">
             <i class="fa-solid fa-calendar-check"></i>
              <p class="mx-2">
-               Appointment
+               {{ trans('main-trans.Appointment') }}
                <i class="fas fa-angle-left right"></i>
              </p>
            </a>
@@ -531,7 +546,7 @@
                    <a href="{{ route('appointments.index') }}" class="nav-link">
                      <i class="fas fa-list nav-icon"></i>
 
-                     <p>Index</p>
+                     <p>{{ trans('main-trans.Index') }}</p>
                    </a>
                  </li>
                @endcan
@@ -543,7 +558,7 @@
             <a href="#" class="nav-link">
                 <i class="fa-solid fa-money-bill-1-wave"></i>
               <p class="mx-2">
-               Payment
+                {{ trans('main-trans.Payment') }}
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -552,7 +567,7 @@
                 <li class="nav-item">
                     <a href="{{ route('payments.index') }}" class="nav-link">
                       <i class="fas fa-list nav-icon"></i>
-                      <p>Index</p>
+                      <p>{{ trans('main-trans.Index') }}</p>
                     </a>
                   </li>
                 @endcan
@@ -566,7 +581,7 @@
            <a href="#" class="nav-link">
             <i class="fa-solid fa-comment"></i>
              <p class="mx-2">
-              Review
+                {{ trans('main-trans.Review') }}
                <i class="fas fa-angle-left right"></i>
              </p>
            </a>
@@ -576,7 +591,7 @@
                    <a href="{{ route('reviews.index') }}" class="nav-link">
                      <i class="fas fa-list nav-icon"></i>
 
-                     <p>Index</p>
+                     <p>{{ trans('main-trans.Index') }}</p>
                    </a>
                  </li>
                @endcan
@@ -591,7 +606,7 @@
                 <a href="#" class="nav-link">
                     <i class="fa-solid fa-business-time"></i>
                   <p class="mx-2">
-                    Opening-Hours
+                     {{ trans('main-trans.Opening-Hours') }}
                     <i class="fas fa-angle-left right"></i>
                   </p>
                 </a>
@@ -601,7 +616,7 @@
                         <a href="{{ route('opening-hours.index') }}" class="nav-link">
                           <i class="fas fa-list nav-icon"></i>
 
-                          <p>Index</p>
+                          <p>{{ trans('main-trans.Index') }}</p>
                         </a>
                       </li>
                     @endcan
@@ -614,7 +629,7 @@
             <a href="#" class="nav-link">
                 <i class="fa-solid fa-business-time"></i>
               <p class="mx-2">
-                Medical History
+                  {{  trans('main-trans.Medical History') }}
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -624,7 +639,7 @@
                     <a href="{{ route('medical-histories.index') }}" class="nav-link">
                       <i class="fas fa-list nav-icon"></i>
 
-                      <p>Index</p>
+                      <p>{{ trans('main-trans.Index') }}</p>
                     </a>
                   </li>
                 @endcan
@@ -638,7 +653,7 @@
             <a href="#" class="nav-link">
                 <i class="fa-solid fa-phone"></i>
               <p class="mx-2">
-                Contact Us
+                  {{ trans('main-trans.Contact Us') }}
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -647,7 +662,7 @@
               <li class="nav-item">
                 <a href="{{ route('contacts.index') }}" class="nav-link">
                   <i class="fas fa-list nav-icon"></i>
-                  <p>Index</p>
+                  <p>{{ trans('main-trans.Index') }}</p>
                 </a>
               </li>
 
@@ -656,7 +671,7 @@
               <li class="nav-item">
                 <a href="{{ route('contacts.create') }}" class="nav-link">
                   <i class="fas fa-list nav-icon"></i>
-                  <p>Create</p>
+                  <p>{{ trans('main-trans.Create') }}</p>
                 </a>
               </li>
 
@@ -669,24 +684,24 @@
 
           @endcanAny
 
-          <li class="nav-header">settings</li>
+          <li class="nav-header">{{ trans('main-trans.settings') }}</li>
 
           <li class="nav-item">
             <a href="{{ route('dashboard.profile') }}" class="nav-link">
               <i class="nav-icon fas fa-edit text-info"></i>
-              <p class="text">Edit your profile</p>
+              <p class="text">{{ trans('main-trans.Edit your profile') }}</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{ route('cms.auth.editpassword') }}" class="nav-link">
               <i class="nav-icon fas fa-key text-success"></i>
-              <p class="text">Change password</p>
+              <p class="text">{{ trans('main-trans.Change password') }}</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{ route('cms.logout') }}" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt text-danger"></i>
-              <p class="text">Log out</p>
+              <p class="text">{{ trans('main-trans.Log out') }}</p>
             </a>
           </li>
 
@@ -709,7 +724,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{ route('dashborad') }}">Home</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('dashborad.index') }}">{{ trans('main-trans.Home') }}</a></li>
               <li class="breadcrumb-item active">@yield('sub-tittle')</li>
             </ol>
           </div><!-- /.col -->

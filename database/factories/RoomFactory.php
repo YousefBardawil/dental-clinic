@@ -14,7 +14,7 @@ class RoomFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'room_name' => $this->faker->name(),
         ];
     }
 }

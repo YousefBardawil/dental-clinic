@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
+use App\Models\Client;
+use App\Models\Dentist;
 use App\Models\Service;
+use App\Models\User;
+use App\Notifications\create_Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use phpDocumentor\Reflection\DocBlock\Tags\See;
 
 class ServiceController extends Controller
@@ -43,6 +49,17 @@ class ServiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+     public function test(){
+
+        $users = Client::where('id','!=',auth()->user()->id)->pluck('name') ;
+
+        foreach($users as $user){
+            return $user;
+        }
+
+     }
+
     public function store(Request $request)
     {
         $validator = Validator($request->all(),[
@@ -63,6 +80,16 @@ class ServiceController extends Controller
                $services->description = $request->get('description');
                $services->price = $request->get('price');
                $isSaved = $services->save();
+
+               $clients = Client::where('id','!=',auth()->guard()->user()->id)->get();
+               $clients_name = Client::where('id','!=',auth()->user()->id)->pluck('name');
+            //    $admins = Admin::where('id','!=',auth()->guard()->user()->id)->get();
+            //    $dentists = Dentist::where('id','!=',auth()->guard()->user()->id)->get();
+               $service_create = auth()->guard()->user()->name;
+                // Notification::send($admins , new create_Service($services,$service_create));
+                // Notification::send($dentists , new create_Service($services,$service_create));
+                Notification::send($clients , new create_Service($services,$service_create,$clients_name));
+
 
                if($isSaved){
 

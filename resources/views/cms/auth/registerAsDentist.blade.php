@@ -72,6 +72,14 @@
                         </div>
                       </div>
                       <div class="input-group mb-3">
+                        <input type="mobile" class="form-control" id="mobile" name="mobile" placeholder="mobile">
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="input-group mb-3">
                         <select class="form-control select2" name="city_id" style="width: 100%;" id="city_id">
                               <option >City </option>
                                @foreach ($cities as $city )
@@ -151,6 +159,7 @@
      formData.append('password' ,document.getElementById('password').value );
      formData.append('city_id' ,document.getElementById('city_id').value );
      formData.append('role_id' ,document.getElementById('role_id').value );
+     formData.append('mobile' ,document.getElementById('mobile').value );
 
 
      store('/cms/do-register-dentist',formData);
